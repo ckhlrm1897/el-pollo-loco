@@ -1,4 +1,4 @@
-class Layer extends MovableObject {
+class BackgroundLayer extends MovableObject {
     x=0;
     y=0;
     width = 720;
