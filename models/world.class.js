@@ -26,20 +26,20 @@ class World {
         this.setWorld();
     }
 
-    setWorld(){
+    setWorld() {
         this.character.world = this;
     }
 
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-       
+
 
         this.addObjectsToMap(this.backGroundLayers);
         this.addToMap(this.character);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
-       
+
 
 
 
@@ -49,14 +49,19 @@ class World {
         });
     }
 
-    addObjectsToMap(objects){
-          objects.forEach(object => {
+    addObjectsToMap(objects) {
+        objects.forEach(object => {
             this.addToMap(object);
         });
     }
 
-    addToMap(mo){
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(mo.img.width, 0);
+            this.ctx.scale(-1, 1);
+        }
+         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
     }
 }
 
