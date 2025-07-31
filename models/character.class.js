@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-
+    x = 80;
     speed = 10;
 
     IMAGES_WALKING = [
@@ -30,6 +30,7 @@ class Character extends MovableObject {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
+            this.world.camera_x = -this.x +80;
         }, 1000 / 60)
 
 
