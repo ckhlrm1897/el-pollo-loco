@@ -1,15 +1,11 @@
-class MovableObject {
-    x = 80;
-    y = 98;
-    img;
-    height = 230;
-    width = 130;
-    imageCache = {};
-    currentImage = 0;
+class MovableObject extends DrawableObject {
+
+
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
+    lastHit = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -24,40 +20,34 @@ class MovableObject {
         return this.y < 198;
     }
 
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    };
 
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
+    isDead() {
+        return this.energy == 0;
     }
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+    isHurt() {
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
+    };
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken){
-        ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
         }
-
     }
-
-    /**
-     * 
-     * @param {Array} arr - ['img/image1.png', 'img/image1.png',...]
-     */
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-
-    }
-
 
     moveRight() {
         this.x += this.speed;
@@ -76,7 +66,14 @@ class MovableObject {
     }
 
     jump() {
-        this.speedY = 30;
+        this.speedY = 25;
+    }
+
+    isColliding(mo) {
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height
     }
 
 }
