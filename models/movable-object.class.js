@@ -71,5 +71,7 @@ class MovableObject extends DrawableObject {
             this.y < mo.y + mo.height
     }
 
+    
+
 }
 
