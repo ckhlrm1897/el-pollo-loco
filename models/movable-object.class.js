@@ -17,7 +17,12 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 198;
+        if (this instanceof ThrowableObject){
+            return true
+        } else {
+            return this.y < 198;
+        }
+        
     }
 
     hit() {
@@ -38,16 +43,6 @@ class MovableObject extends DrawableObject {
         timePassed = timePassed / 1000;
         return timePassed < 1;
     };
-
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
 
     moveRight() {
         this.x += this.speed;

@@ -6,6 +6,8 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
+    bottle = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -13,24 +15,35 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollision();
+        this.run();
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    checkCollision(){
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)){
-                    this.character.hit();
-                    console.log('Charakter energy',  this.character.energy);
-                }
-            })
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 1000 / 10);
     }
 
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        })
+    }
+
+    checkThrowObjects(){
+        if (this.keyboard.D){
+            let bottle = new ThrowableObject(this.character.x, this.character.y);
+            this.bottle.push(bottle);
+        }
+    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -38,9 +51,15 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.level.backGroundLayers);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.bottle);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -85,7 +104,3 @@ class World {
     }
 
 }
-
-//   for (let index = 0; index < this.enemies.length; index++) {
-//
-//         }
