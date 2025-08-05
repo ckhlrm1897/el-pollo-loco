@@ -6,8 +6,9 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    statusBar = new HealthBar();
     bottle = [];
+    coinBar = new CoinBar();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -38,8 +39,8 @@ class World {
         })
     }
 
-    checkThrowObjects(){
-        if (this.keyboard.D){
+    checkThrowObjects() {
+        if (this.keyboard.D) {
             let bottle = new ThrowableObject(this.character.x, this.character.y);
             this.bottle.push(bottle);
         }
@@ -55,6 +56,12 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.coinBar);
+        this.ctx.translate(this.camera_x, 0);
+
+
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
