@@ -15,7 +15,6 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.loadImages(this.IMAGES_ROTATING);
         this.throw();
-        this.playAnimation(this.IMAGES_ROTATING);
     }
 
     throw() {
@@ -23,7 +22,12 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
         setInterval(() => {
             this.x += 10;
+            
         }, 25);
+
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_ROTATING)
+         }, 1000/20);
     }
 
 }
