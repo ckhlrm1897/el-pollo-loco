@@ -43,17 +43,20 @@ class World {
     checkCollecting() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
-                this.level.bottles.pop();
-                console.log('collect', bottle.x);
-                
+                let index = this.level.bottles.indexOf(bottle);
+                this.level.bottles.splice(index, 1)
+                // this.throwableBottles.push(bottle)
+                console.log(this.throwableBottles);
             }
         })
     }
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let throwableBottles = new ThrowableObject(this.character.x, this.character.y);
-            this.throwableBottles.push(throwableBottles);
+            let throwableBottle = new ThrowableObject(this.character.x, this.character.y);
+            this.throwableBottles.push(throwableBottle);
+            console.log(this.throwableBottles);
+            
         }
     }
 

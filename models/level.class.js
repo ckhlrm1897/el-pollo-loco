@@ -3,8 +3,6 @@ class Level {
     clouds;
     backGroundLayers;
     level_end_x = 2200;
-    statusbar;
-    bottle;
 
 
     constructor(enemies, clouds, backGroundLayers, bottles){
