@@ -4,12 +4,13 @@ class Level {
     backGroundLayers;
     level_end_x = 2200;
     statusbar;
+    bottle;
 
 
-    constructor(enemies, clouds, backGroundLayers, statusbar){
+    constructor(enemies, clouds, backGroundLayers, bottles){
         this.enemies = enemies;
         this.clouds = clouds;
         this.backGroundLayers = backGroundLayers; 
-        this.statusbar = statusbar;
+        this.bottles = bottles;
     }
 }
