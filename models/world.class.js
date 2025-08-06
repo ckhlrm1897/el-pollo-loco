@@ -27,6 +27,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCollecting();
         }, 1000 / 10);
     }
 
@@ -35,6 +36,16 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
+            }
+        })
+    }
+
+    checkCollecting() {
+        this.level.bottles.forEach((bottle) => {
+            if (this.character.isColliding(bottle)) {
+                this.level.bottles.pop();
+                console.log('collect', bottle.x);
+                
             }
         })
     }
