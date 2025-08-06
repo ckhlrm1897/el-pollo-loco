@@ -71,7 +71,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
-
+ 
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -91,6 +91,7 @@ class World {
         }
 
         mo.draw(this.ctx);
+        mo.drawOuterFrame(this.ctx);
         mo.drawFrame(this.ctx);
 
 
