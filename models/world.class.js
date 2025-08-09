@@ -7,8 +7,9 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new HealthBar();
-    throwableBottles = [];
+    throwableBottles = [new ThrowableObject()];
     coinBar = new CoinBar();
+    bottles = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -45,20 +46,23 @@ class World {
             if (this.character.isColliding(bottle)) {
                 let index = this.level.bottles.indexOf(bottle);
                 this.level.bottles.splice(index, 1)
-                // this.throwableBottles.push(bottle)
-                console.log(this.throwableBottles);
+                this.bottles.push(bottle);
+                // console.log(this.bottles);
             }
+
         })
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let throwableBottle = new ThrowableObject(this.character.x, this.character.y);
-            this.throwableBottles.push(throwableBottle);
-            console.log(this.throwableBottles);
-            
-        }
+            if (this.keyboard.D) {
+                if (this.bottles.length > ""){
+                let bottle = new ThrowableObject(this.character.x, this.character.y);
+                this.throwableBottles.push(bottle);
+                this.bottles.pop();
+                }  
+            }
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -74,18 +78,15 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
-
-
-
         this.addToMap(this.character);
-        
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableBottles);
         this.addObjectsToMap(this.level.bottles);
 
         this.ctx.translate(-this.camera_x, 0);
 
- 
+
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
