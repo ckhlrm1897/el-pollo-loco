@@ -45,10 +45,13 @@ class World {
     checkCollecting() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
+                if (this.bottles.length < 5){
                 let index = this.level.bottles.indexOf(bottle);
                 this.level.bottles.splice(index, 1)
                 this.bottles.push(bottle);
-                // console.log(this.bottles);
+                this.bottleBar.quantity++;
+                this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
+                }
             }
 
         })
@@ -61,6 +64,8 @@ class World {
                     let bottle = new ThrowableObject(this.character.x, this.character.y);
                     this.throwableBottles.push(bottle);
                     this.bottles.pop();
+                    this.bottleBar.quantity --;
+                    this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
                 }
             }
         }, 1000 / 10);
