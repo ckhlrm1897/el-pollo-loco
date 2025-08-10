@@ -10,6 +10,7 @@ class World {
     throwableBottles = [new ThrowableObject()];
     coinBar = new CoinBar();
     bottles = [];
+    bottleBar = new BottleBar();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -18,6 +19,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.checkThrowObjects();
     }
 
     setWorld() {
@@ -27,9 +29,8 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkThrowObjects();
             this.checkCollecting();
-        }, 1000 / 10);
+        }, 1000 / 20);
     }
 
     checkCollisions() {
@@ -54,13 +55,15 @@ class World {
     }
 
     checkThrowObjects() {
+        setInterval(() => {
             if (this.keyboard.D) {
-                if (this.bottles.length > ""){
-                let bottle = new ThrowableObject(this.character.x, this.character.y);
-                this.throwableBottles.push(bottle);
-                this.bottles.pop();
-                }  
+                if (this.bottles.length > "") {
+                    let bottle = new ThrowableObject(this.character.x, this.character.y);
+                    this.throwableBottles.push(bottle);
+                    this.bottles.pop();
+                }
             }
+        }, 1000 / 10);
     }
 
 
@@ -78,6 +81,11 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
+
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.bottleBar);
+        this.ctx.translate(this.camera_x, 0);
+
         this.addToMap(this.character);
 
         this.addObjectsToMap(this.level.enemies);
