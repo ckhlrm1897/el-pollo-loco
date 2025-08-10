@@ -35,9 +35,16 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && this.character.y < 200) {
+                // debugger;
+                console.log("jump Attack");
+                let index = this.level.enemies.indexOf(enemy);
+                this.level.enemies.splice(index, 1)
+            } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
+                console.log("NO jump Attack");
+                // debugger;
             }
         })
     }
@@ -45,15 +52,14 @@ class World {
     checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
-                if (this.bottles.length < 5){
-                let index = this.level.bottles.indexOf(bottle);
-                this.level.bottles.splice(index, 1)
-                this.bottles.push(bottle);
-                this.bottleBar.quantity++;
-                this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
+                if (this.bottles.length < 5) {
+                    let index = this.level.bottles.indexOf(bottle);
+                    this.level.bottles.splice(index, 1)
+                    this.bottles.push(bottle);
+                    this.bottleBar.quantity++;
+                    this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
                 }
             }
-
         })
     }
 
@@ -64,7 +70,7 @@ class World {
                     let bottle = new ThrowableObject(this.character.x, this.character.y);
                     this.throwableBottles.push(bottle);
                     this.bottles.pop();
-                    this.bottleBar.quantity --;
+                    this.bottleBar.quantity--;
                     this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
                 }
             }
