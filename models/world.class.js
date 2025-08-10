@@ -29,7 +29,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkCollecting();
+            this.checkCollectingBottles();
         }, 1000 / 20);
     }
 
@@ -42,7 +42,7 @@ class World {
         })
     }
 
-    checkCollecting() {
+    checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 if (this.bottles.length < 5){

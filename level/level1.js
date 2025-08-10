@@ -1,8 +1,11 @@
 const level1 = new Level(
     [
-        // new Chicken(),
-        // new Chicken(),
-        // new Chicken(),
+        new Chicken(100),
+        new Chicken(350),
+        new Chicken(600),
+        new Chicken(850),
+        new Chicken(1000),
+        new Chicken(1150),
         new Endboss(),
     ],
     [
@@ -35,13 +38,13 @@ const level1 = new Level(
         new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', 720 * 3),
     ],
     [
-        new Bottle(100),
-        new Bottle(200),
-        new Bottle(300),
-        new Bottle(400),
-        new Bottle(500),
-        new Bottle(600),
-        new Bottle(700),
-        new Bottle(800),
+        new Bottle(0, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+        new Bottle(150, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+        new Bottle(350, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+        new Bottle(400, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+        new Bottle(600, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+        new Bottle(850, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+        new Bottle(1000, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+        new Bottle(1350, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
     ],
 );
