@@ -1,9 +1,27 @@
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@font-face {
+    font-family: 'Rye-Regular';
+    src: url('./fonts/Rye-Regular.ttf');
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('img/body_background.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    font-family: 'Rye-Regular';
+}
+
+h1{
+    font-size: 50px;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
 canvas {
     background-color: black;
 }
