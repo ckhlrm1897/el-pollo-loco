@@ -11,6 +11,7 @@ class World {
     coinBar = new CoinBar();
     bottles = [];
     bottleBar = new BottleBar();
+    homeScreen = new HomeScreen();
     
 
     constructor(canvas, keyboard) {
@@ -37,14 +38,13 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.y < 200) {
-                // debugger;
-                console.log("jump Attack");
+                // console.log("jump Attack");
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies.splice(index, 1)
             } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-                console.log("NO jump Attack");
+                // console.log("NO jump Attack");
                 // debugger;
             }
         })
@@ -100,6 +100,8 @@ class World {
 
         this.addToMap(this.character);
 
+       
+
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableBottles);
         this.addObjectsToMap(this.level.bottles);
@@ -107,6 +109,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
+        this.addToMap(this.homeScreen);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -127,8 +130,8 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawOuterFrame(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawOuterFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
 
 
         if (mo.otherDirection) {
