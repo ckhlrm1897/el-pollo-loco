@@ -9,10 +9,12 @@ class World {
     statusBar = new HealthBar();
     throwableBottles = [new ThrowableObject()];
     coinBar = new CoinBar();
+    coins = [];
     bottles = [];
     bottleBar = new BottleBar();
     homeScreen = new HomeScreen();
-    
+
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -32,20 +34,18 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkCollectingBottles();
+            this.checkCollectingCoins();
         }, 1000 / 20);
     }
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.y < 200) {
-                // console.log("jump Attack");
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies.splice(index, 1)
             } else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-                // console.log("NO jump Attack");
-                // debugger;
             }
         })
     }
@@ -59,6 +59,20 @@ class World {
                     this.bottles.push(bottle);
                     this.bottleBar.quantity++;
                     this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
+                }
+            }
+        })
+    }
+
+    checkCollectingCoins() {
+        this.level.coins.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+                if (this.coins.length < 5) {
+                    let index = this.level.coins.indexOf(coin);
+                    this.level.coins.splice(index, 1)
+                    this.coins.push(coin);
+                    this.coinBar.quantity++;
+                    this.coinBar.setQuantity(this.coinBar.IMAGES_STATUSBAR_COIN);
                 }
             }
         })
@@ -100,7 +114,7 @@ class World {
 
         this.addToMap(this.character);
 
-       
+
 
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableBottles);
