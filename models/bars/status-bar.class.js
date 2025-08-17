@@ -1,5 +1,5 @@
 class StatusBar extends DrawableObject {
-
+    x = 10;
     quantity = 0;
 
     resolveImageIndex() {

@@ -19,7 +19,6 @@ class HealthBar extends StatusBar {
     constructor() {
         super();
         this.loadImages(this.IMAGES_STATUSBAR_HEALTH);
-        this.x = 10;
         this.y = 0;
         this.height = 50;
         this.setPercentage(100);

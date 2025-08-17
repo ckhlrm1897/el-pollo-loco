@@ -42,8 +42,14 @@ class World {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.y < 200) {
                 let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies.splice(index, 1)
-            } else if (this.character.isColliding(enemy)) {
+                this.level.enemies[index].isAlive = false;
+                // enemy.isAlive = false;
+                setTimeout(() => {
+                    this.level.enemies = this.level.enemies.filter(e => e !== enemy);
+                }, 1000);
+                // this.level.enemies[index].animate();
+
+            } else if (this.character.isColliding(enemy) && enemy.isAlive) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -102,19 +108,11 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
-        this.ctx.translate(this.camera_x, 0);
-
-        this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.coinBar);
-        this.ctx.translate(this.camera_x, 0);
-
-        this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.bottleBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
-
-
 
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableBottles);
@@ -124,6 +122,7 @@ class World {
         this.ctx.translate(-this.camera_x, 0);
 
         this.addToMap(this.homeScreen);
+
 
         let self = this;
         requestAnimationFrame(function () {
@@ -142,12 +141,9 @@ class World {
             this.flipImage(mo);
 
         }
-
         mo.draw(this.ctx);
         // mo.drawOuterFrame(this.ctx);
         // mo.drawFrame(this.ctx);
-
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -164,5 +160,4 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
-
 }
