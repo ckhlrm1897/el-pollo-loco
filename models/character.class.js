@@ -60,10 +60,6 @@ class Character extends MovableObject {
         this.animate();
     }
 
-    statusBarCharacter(){
-
-    }
-
     animate() {
 
         setInterval(() => {

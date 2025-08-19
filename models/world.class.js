@@ -41,14 +41,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.y < 200) {
-                let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies[index].isAlive = false;
-                // enemy.isAlive = false;
-                setTimeout(() => {
-                    this.level.enemies = this.level.enemies.filter(e => e !== enemy);
-                }, 1000);
-                // this.level.enemies[index].animate();
-
+                this.enemieDies(enemy);
             } else if (this.character.isColliding(enemy) && enemy.isAlive) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
@@ -56,29 +49,42 @@ class World {
         })
     }
 
+    enemieDies(enemy) {
+        let index = this.level.enemies.indexOf(enemy);
+        this.level.enemies[index].isAlive = false;
+        setTimeout(() => {
+            this.level.enemies = this.level.enemies.filter(e => e !== enemy);
+        }, 1000);
+    }
+
     checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 if (this.bottles.length < 5) {
-                    let index = this.level.bottles.indexOf(bottle);
-                    this.level.bottles.splice(index, 1)
-                    this.bottles.push(bottle);
-                    this.bottleBar.quantity++;
-                    this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
+                    this.getObject(bottle);
                 }
             }
         })
+    }
+
+    getObject(object) {
+        let type = object.constructor.name.toLowerCase();
+        let plural = type + "s";
+        let barName = type + "Bar";
+        let imageConst = `IMAGES_STATUSBAR_${type.toUpperCase()}`;
+        let index = this.level[plural].indexOf(object);
+
+        this.level[plural].splice(index, 1)
+        this[plural].push(object);
+        this[barName].quantity++;
+        this[barName].setQuantity(this[barName][imageConst]);
     }
 
     checkCollectingCoins() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 if (this.coins.length < 5) {
-                    let index = this.level.coins.indexOf(coin);
-                    this.level.coins.splice(index, 1)
-                    this.coins.push(coin);
-                    this.coinBar.quantity++;
-                    this.coinBar.setQuantity(this.coinBar.IMAGES_STATUSBAR_COIN);
+                    this.getObject(coin);
                 }
             }
         })
@@ -139,7 +145,6 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
-
         }
         mo.draw(this.ctx);
         // mo.drawOuterFrame(this.ctx);
