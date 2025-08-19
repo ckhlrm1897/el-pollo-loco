@@ -2,7 +2,7 @@ class Chicken extends MovableObject {
     y = 355;
     height = 70;
     width = 70;
-    isAlive = true;
+    energy = 100;
     
     offset = {
         top: 5,
@@ -46,7 +46,6 @@ class Chicken extends MovableObject {
                 this.playAnimation(this.IMAGE_DEAD);
                 this.speed = 0;
             }
-
         }, 1000 / 20);
     }
 }

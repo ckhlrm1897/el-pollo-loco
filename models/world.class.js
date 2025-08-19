@@ -7,7 +7,7 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new HealthBar();
-    throwableBottles = [new ThrowableObject()];
+    throwableBottles = [];
     coinBar = new CoinBar();
     coins = [];
     bottles = [];
@@ -40,18 +40,29 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
+            this.checkHitByBottle(enemy);
             if (this.character.isColliding(enemy) && this.character.y < 200) {
                 this.enemieDies(enemy);
             } else if (this.character.isColliding(enemy) && enemy.isAlive) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
+            } 
+        })
+    }
+
+    checkHitByBottle(enemy) {
+        this.throwableBottles.forEach((bottle) => {
+            if (enemy.isColliding(bottle)) {
+                this.enemieDies(enemy);
+                console.log(enemy + bottle);
+
             }
         })
     }
 
     enemieDies(enemy) {
         let index = this.level.enemies.indexOf(enemy);
-        this.level.enemies[index].isAlive = false;
+        this.level.enemies[index].isAlive = 0;
         setTimeout(() => {
             this.level.enemies = this.level.enemies.filter(e => e !== enemy);
         }, 1000);
@@ -93,12 +104,14 @@ class World {
     checkThrowObjects() {
         setInterval(() => {
             if (this.keyboard.D) {
+                this.throwableBottles.pop();
                 if (this.bottles.length > "") {
                     let bottle = new ThrowableObject(this.character.x, this.character.y);
                     this.throwableBottles.push(bottle);
                     this.bottles.pop();
                     this.bottleBar.quantity--;
                     this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
+                    // this.throwableBottles.pop();
                 }
             }
         }, 1000 / 10);
