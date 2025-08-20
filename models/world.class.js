@@ -42,30 +42,29 @@ class World {
         this.level.enemies.forEach((enemy) => {
             this.checkHitByBottle(enemy);
             if (this.character.isColliding(enemy) && this.character.y < 200) {
-                this.enemieDies(enemy);
+                let index = this.level.enemies.indexOf(enemy);
+                this.level.enemies[index].enemieDies(enemy, index);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-            } 
+            }
         })
     }
 
     checkHitByBottle(enemy) {
         this.throwableBottles.forEach((bottle) => {
             if (enemy.isColliding(bottle) && bottle.y > 285) {
-                this.enemieDies(enemy);
+                let index = this.level.enemies.indexOf(enemy);
+                this.level.enemies[index].enemieDies(enemy, index);
                 bottle.energy = 0;
+                setTimeout(() => {
+                    this.throwableBottles.pop();
+                }, 1000 / 5);
             }
         })
     }
 
-    enemieDies(enemy) {
-        let index = this.level.enemies.indexOf(enemy);
-        this.level.enemies[index].energy = 0;
-        setTimeout(() => {
-            this.level.enemies = this.level.enemies.filter(e => e !== enemy);
-        }, 1000);
-    }
+
 
     checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
@@ -159,8 +158,8 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        mo.drawOuterFrame(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawOuterFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
