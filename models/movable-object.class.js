@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
+    speedX = 0;
     acceleration = 2.5;
     lastHit = 0;
 
@@ -39,7 +40,7 @@ class MovableObject extends DrawableObject {
     }
 
     isAlive() {
-        return this.energy < 0;
+        return this.energy > 0;
     }
 
     isHurt() {

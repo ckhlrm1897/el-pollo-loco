@@ -26,3 +26,7 @@ canvas {
     background-color: black;
     /* margin: auto; */
 }
+
+.d_none{
+    display: none;
+}

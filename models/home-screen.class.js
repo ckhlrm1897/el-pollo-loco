@@ -1,7 +1,6 @@
 class HomeScreen extends DrawableObject{
     
     HOME_SCREEN = ['./img/9_intro_outro_screens/start/startscreen_1.png'];
-    // HOME_SCREEN = [];
 
     constructor(){
         super().loadImage(this.HOME_SCREEN);
@@ -9,7 +8,6 @@ class HomeScreen extends DrawableObject{
         this.y = 0;
         this.height = 480;
         this.width = 720;
-        // this.removeScreen();
     }
 
 
