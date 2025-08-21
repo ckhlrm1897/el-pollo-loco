@@ -1,12 +1,18 @@
 let canvas;
 let world;
-let keyboard = new Keyboard();
+let keyboard = new Keyboard()
 
 function init() {
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
 
-    console.log('My Character is', world['character']);
+    setTimeout(() => {
+           canvas = document.getElementById("canvas");
+           document.getElementById('canvas').classList.remove("d_none")
+           document.getElementById('home-screen').classList.add('d_none')
+           world = new World(canvas, keyboard);
+    }, 5000);
+    
+
+    // console.log('My Character is', world['character']);
 
 }
 

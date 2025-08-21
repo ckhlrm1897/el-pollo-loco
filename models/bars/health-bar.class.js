@@ -13,7 +13,7 @@ class HealthBar extends StatusBar {
 
 
     percentage = 100;
-   
+
 
 
     constructor() {

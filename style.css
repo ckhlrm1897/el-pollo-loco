@@ -30,3 +30,8 @@ canvas {
 .d_none{
     display: none;
 }
+
+img{
+    height: 480px;
+    width: 720px;
+}

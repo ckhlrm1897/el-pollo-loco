@@ -1,20 +1,11 @@
 class BottleBar extends StatusBar {
 
-      IMAGES_STATUSBAR_BOTTLE = [
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png',
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/60.png',
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png',
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png',
-    ]
-
     constructor() {
-        super();
-        this.loadImages(this.IMAGES_STATUSBAR_BOTTLE);
-        this.y = 80;
+        super().loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
+        this.x = -2 ;
+        this.y = 85;
         this.height = 50;
-        this.setQuantity(this.IMAGES_STATUSBAR_BOTTLE);
+        this.width = 60;
     }
 
 }

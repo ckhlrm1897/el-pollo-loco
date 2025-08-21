@@ -12,18 +12,20 @@ class World {
     coins = [];
     bottles = [];
     bottleBar = new BottleBar();
-    homeScreen = new HomeScreen();
+
 
 
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
+
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.run();
         this.checkThrowObjects();
+
     }
 
     setWorld() {
@@ -69,9 +71,7 @@ class World {
     checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
-                if (this.bottles.length < 5) {
                     this.getObject(bottle);
-                }
             }
         })
     }
@@ -86,15 +86,12 @@ class World {
         this.level[plural].splice(index, 1)
         this[plural].push(object);
         this[barName].quantity++;
-        this[barName].setQuantity(this[barName][imageConst]);
     }
 
     checkCollectingCoins() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
-                if (this.coins.length < 5) {
                     this.getObject(coin);
-                }
             }
         })
     }
@@ -102,14 +99,12 @@ class World {
     checkThrowObjects() {
         setInterval(() => {
             if (this.keyboard.D) {
-                // this.throwableBottles.pop();
                 if (this.bottles.length > "") {
                     let bottle = new ThrowableObject(this.character.x, this.character.y);
                     this.throwableBottles.push(bottle);
                     this.bottles.pop();
                     this.bottleBar.quantity--;
-                    this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
-                    // this.throwableBottles.pop();
+                    // this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
                 }
             }
         }, 1000 / 10);
@@ -137,8 +132,9 @@ class World {
         this.addObjectsToMap(this.level.coins);
 
         this.ctx.translate(-this.camera_x, 0);
-
-        this.addToMap(this.homeScreen);
+        this.ctx.font = "40px Rye-Regular";
+        this.ctx.fillText(this.coinBar.quantity, 60, 85);
+        this.ctx.fillText(this.bottleBar.quantity, 60, 125);
 
 
         let self = this;
