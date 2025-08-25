@@ -57,11 +57,14 @@ class World {
         this.throwableBottles.forEach((bottle) => {
             if (enemy.isColliding(bottle)) {
                 let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies[index].enemieDies(enemy, index);
+                this.level.enemies[index].energy -= 20;
+                if (this.level.enemies[index].energy == 0) {
+                    this.level.enemies[index].enemieDies(enemy, index);
+                }
                 bottle.energy = 0;
                 setTimeout(() => {
                     this.throwableBottles.pop();
-                }, 1000 / 5);
+                }, 1000 / 50);
             }
         })
     }

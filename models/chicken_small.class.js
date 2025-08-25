@@ -2,7 +2,7 @@ class SmallChicken extends MovableObject {
     y = 355;
     height = 70;
     width = 70;
-    energy = 100;
+    energy = 20;
     
     offset = {
         top: 5,
