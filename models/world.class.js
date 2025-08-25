@@ -55,7 +55,7 @@ class World {
 
     checkHitByBottle(enemy) {
         this.throwableBottles.forEach((bottle) => {
-            if (enemy.isColliding(bottle) && bottle.y > 285) {
+            if (enemy.isColliding(bottle)) {
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies[index].enemieDies(enemy, index);
                 bottle.energy = 0;
@@ -71,7 +71,7 @@ class World {
     checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
-                    this.getObject(bottle);
+                this.getObject(bottle);
             }
         })
     }
@@ -80,7 +80,7 @@ class World {
         let type = object.constructor.name.toLowerCase();
         let plural = type + "s";
         let barName = type + "Bar";
-        let imageConst = `IMAGES_STATUSBAR_${type.toUpperCase()}`;
+        // let imageConst = `IMAGES_STATUSBAR_${type.toUpperCase()}`;
         let index = this.level[plural].indexOf(object);
 
         this.level[plural].splice(index, 1)
@@ -91,7 +91,7 @@ class World {
     checkCollectingCoins() {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
-                    this.getObject(coin);
+                this.getObject(coin);
             }
         })
     }
@@ -104,7 +104,6 @@ class World {
                     this.throwableBottles.push(bottle);
                     this.bottles.pop();
                     this.bottleBar.quantity--;
-                    // this.bottleBar.setQuantity(this.bottleBar.IMAGES_STATUSBAR_BOTTLE);
                 }
             }
         }, 1000 / 10);

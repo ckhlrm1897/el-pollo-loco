@@ -45,12 +45,19 @@ class ThrowableObject extends MovableObject {
 
 
         setInterval(() => {
+            let i = 0;
             if (this.isAlive()) {
                 this.playAnimation(this.IMAGES_ROTATING)
             } else if (this.isDead()) {
+                if (i < 6){
+                this.height = 200;
+                this.width = 160;
                 this.speedY = 0;
                 this.speedX = 0;
                 this.playAnimation(this.IMAGES_SPLASHING)
+                i++
+                }
+
             }
         }, 1000 / 20);
     }
