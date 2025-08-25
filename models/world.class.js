@@ -12,13 +12,13 @@ class World {
     coins = [];
     bottles = [];
     bottleBar = new BottleBar();
+    endbossBar = new HealthBarEndboss();
 
 
 
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
-
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -58,6 +58,9 @@ class World {
             if (enemy.isColliding(bottle)) {
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies[index].energy -= 20;
+                if (this.level.enemies[index] instanceof Endboss){
+                    this.endbossBar.setPercentage(this.level.enemies[index].energy)
+                }
                 if (this.level.enemies[index].energy == 0) {
                     this.level.enemies[index].enemieDies(enemy, index);
                 }
@@ -124,6 +127,7 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.endbossBar);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
