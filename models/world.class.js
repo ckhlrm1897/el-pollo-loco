@@ -47,7 +47,7 @@ class World {
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies[index].enemieDies(enemy, index);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
-                this.character.hit();
+                this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
             }
         })
@@ -57,12 +57,16 @@ class World {
         this.throwableBottles.forEach((bottle) => {
             if (enemy.isColliding(bottle)) {
                 let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies[index].energy -= 20;
-                if (this.level.enemies[index] instanceof Endboss){
-                    this.endbossBar.setPercentage(this.level.enemies[index].energy)
+                let hittenEnemy = this.level.enemies[index];
+                hittenEnemy.energy -= 20;
+                if (hittenEnemy instanceof Endboss){
+                    this.endbossBar.setPercentage(hittenEnemy.energy);
+                    hittenEnemy.hit(0);
+                    console.log(hittenEnemy.energy);
+                    
                 }
-                if (this.level.enemies[index].energy == 0) {
-                    this.level.enemies[index].enemieDies(enemy, index);
+                if (hittenEnemy.energy == 0) {
+                    hittenEnemy.enemieDies(enemy, index);
                 }
                 bottle.energy = 0;
                 setTimeout(() => {

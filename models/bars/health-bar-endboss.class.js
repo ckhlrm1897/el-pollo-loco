@@ -19,7 +19,7 @@ class HealthBarEndboss extends StatusBar {
     constructor() {
         super();
         this.loadImages(this.IMAGES_STATUSBAR_HEALTH);
-        this.x = 600
+        this.x = 570
         this.y = 10;
         this.height = 50;
         this.setPercentage(100);
