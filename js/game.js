@@ -5,10 +5,10 @@ let keyboard = new Keyboard()
 function init() {
 
     setTimeout(() => {
-           canvas = document.getElementById("canvas");
-           document.getElementById('canvas').classList.remove("d_none")
-           document.getElementById('home-screen').classList.add('d_none')
-           world = new World(canvas, keyboard);
+        //    canvas = document.getElementById("canvas");
+        //    document.getElementById('canvas').classList.remove("d_none")
+        //    document.getElementById('home-screen').classList.add('d_none')
+        //    world = new World(canvas, keyboard);
     }, 5000);
     
 

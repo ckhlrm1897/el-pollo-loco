@@ -1,70 +1,73 @@
-// let level1;
-// function initLevel()
-const level1 = new Level(
-    [
-        new Chicken(100),
-        new SmallChicken(150),
-        new Chicken(350),
-        new SmallChicken(400),
-        new Chicken(600),
-        new SmallChicken(750),
-        new Chicken(850),
-        new SmallChicken(1000),
-        new Chicken(1150),
-        new SmallChicken(1300),
-        new Chicken(1450),
-        new Endboss(),
-    ],
-    [
-        new Cloud('img/5_background/layers/4_clouds/1.png', 0),
-        new Cloud('img/5_background/layers/4_clouds/2.png', 720),
-        new Cloud('img/5_background/layers/4_clouds/1.png', 720 * 2)
-    ],
-    [
-        new BackgroundLayer('img/5_background/layers/air.png', -720),
-        new BackgroundLayer('img/5_background/layers/3_third_layer/2.png', -720),
-        new BackgroundLayer('img/5_background/layers/2_second_layer/2.png', -720),
-        new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', -720),
+let level1;
+function initLevel() {
 
-        new BackgroundLayer('img/5_background/layers/air.png', 0),
-        new BackgroundLayer('img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundLayer('img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundLayer('img/5_background/layers/1_first_layer/1.png', 0),
-        new BackgroundLayer('img/5_background/layers/air.png', 720),
-        new BackgroundLayer('img/5_background/layers/3_third_layer/2.png', 720),
-        new BackgroundLayer('img/5_background/layers/2_second_layer/2.png', 720),
-        new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', 720),
+    level1 = new Level(
+        [
+            new Chicken(100),
+            new SmallChicken(150),
+            new Chicken(350),
+            new SmallChicken(400),
+            new Chicken(600),
+            new SmallChicken(750),
+            new Chicken(850),
+            new SmallChicken(1000),
+            new Chicken(1150),
+            new SmallChicken(1300),
+            new Chicken(1450),
+            new Endboss(),
+        ],
+        [
+            new Cloud('img/5_background/layers/4_clouds/1.png', 0),
+            new Cloud('img/5_background/layers/4_clouds/2.png', 720),
+            new Cloud('img/5_background/layers/4_clouds/1.png', 720 * 2)
+        ],
+        [
+            new BackgroundLayer('img/5_background/layers/air.png', -720),
+            new BackgroundLayer('img/5_background/layers/3_third_layer/2.png', -720),
+            new BackgroundLayer('img/5_background/layers/2_second_layer/2.png', -720),
+            new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', -720),
 
-        new BackgroundLayer('img/5_background/layers/air.png', 720 * 2),
-        new BackgroundLayer('img/5_background/layers/3_third_layer/1.png', 720 * 2),
-        new BackgroundLayer('img/5_background/layers/2_second_layer/1.png', 720 * 2),
-        new BackgroundLayer('img/5_background/layers/1_first_layer/1.png', 720 * 2),
-        new BackgroundLayer('img/5_background/layers/air.png', 720 * 3),
-        new BackgroundLayer('img/5_background/layers/3_third_layer/2.png', 720 * 3),
-        new BackgroundLayer('img/5_background/layers/2_second_layer/2.png', 720 * 3),
-        new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', 720 * 3),
-    ],
-    [
-        new Bottle(0, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
-        new Bottle(150, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
-        new Bottle(350, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
-        new Bottle(400, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
-        new Bottle(600, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
-        new Bottle(850, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
-        new Bottle(1000, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
-        new Bottle(1350, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
-    ],
-    [
-        new Coin(0, 230),
-        new Coin(0, 210),
-        new Coin(0, 250),
-        new Coin(0, 240),
-        new Coin(0, 260),
-        new Coin(0, 250),
-        new Coin(0, 210),
-        new Coin(0, 250),
-        new Coin(0, 240),
-        new Coin(0, 260),
-        new Coin(0, 250),
-    ]
-);
+            new BackgroundLayer('img/5_background/layers/air.png', 0),
+            new BackgroundLayer('img/5_background/layers/3_third_layer/1.png', 0),
+            new BackgroundLayer('img/5_background/layers/2_second_layer/1.png', 0),
+            new BackgroundLayer('img/5_background/layers/1_first_layer/1.png', 0),
+            new BackgroundLayer('img/5_background/layers/air.png', 720),
+            new BackgroundLayer('img/5_background/layers/3_third_layer/2.png', 720),
+            new BackgroundLayer('img/5_background/layers/2_second_layer/2.png', 720),
+            new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', 720),
+
+            new BackgroundLayer('img/5_background/layers/air.png', 720 * 2),
+            new BackgroundLayer('img/5_background/layers/3_third_layer/1.png', 720 * 2),
+            new BackgroundLayer('img/5_background/layers/2_second_layer/1.png', 720 * 2),
+            new BackgroundLayer('img/5_background/layers/1_first_layer/1.png', 720 * 2),
+            new BackgroundLayer('img/5_background/layers/air.png', 720 * 3),
+            new BackgroundLayer('img/5_background/layers/3_third_layer/2.png', 720 * 3),
+            new BackgroundLayer('img/5_background/layers/2_second_layer/2.png', 720 * 3),
+            new BackgroundLayer('img/5_background/layers/1_first_layer/2.png', 720 * 3),
+        ],
+        [
+            new Bottle(0, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+            new Bottle(150, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+            new Bottle(350, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+            new Bottle(400, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+            new Bottle(600, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+            new Bottle(850, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+            new Bottle(1000, 'img/6_salsa_bottle/1_salsa_bottle_on_ground.png'),
+            new Bottle(1350, 'img/6_salsa_bottle/2_salsa_bottle_on_ground.png'),
+        ],
+        [
+            new Coin(0, 230),
+            new Coin(0, 210),
+            new Coin(0, 250),
+            new Coin(0, 240),
+            new Coin(0, 260),
+            new Coin(0, 250),
+            new Coin(0, 210),
+            new Coin(0, 250),
+            new Coin(0, 240),
+            new Coin(0, 260),
+            new Coin(0, 250),
+        ]
+    );
+
+}

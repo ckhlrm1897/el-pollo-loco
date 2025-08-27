@@ -1,7 +1,7 @@
 
 class World {
     character = new Character();
-    level = level1;
+    level;
     canvas;
     ctx;
     keyboard;
@@ -20,12 +20,13 @@ class World {
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        initLevel();
+        this.level = level1;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.run();
         this.checkThrowObjects();
-
     }
 
     setWorld() {
@@ -43,7 +44,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             this.checkHitByBottle(enemy);
-            if (this.character.isColliding(enemy) && this.character.y < 200) {
+            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies[index].enemieDies(enemy, index);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
@@ -59,24 +60,10 @@ class World {
                 let index = this.level.enemies.indexOf(enemy);
                 let hittenEnemy = this.level.enemies[index];
                 hittenEnemy.energy -= 20;
-                if (hittenEnemy instanceof Endboss){
-                    this.endbossBar.setPercentage(hittenEnemy.energy);
-                    hittenEnemy.hit(0);
-                    console.log(hittenEnemy.energy);
-                    
-                }
-                if (hittenEnemy.energy == 0) {
-                    hittenEnemy.enemieDies(enemy, index);
-                }
-                bottle.energy = 0;
-                setTimeout(() => {
-                    this.throwableBottles.pop();
-                }, 1000 / 50);
+                this.enemyHitOrDie(hittenEnemy, index, bottle);
             }
         })
     }
-
-
 
     checkCollectingBottles() {
         this.level.bottles.forEach((bottle) => {
@@ -84,18 +71,6 @@ class World {
                 this.getObject(bottle);
             }
         })
-    }
-
-    getObject(object) {
-        let type = object.constructor.name.toLowerCase();
-        let plural = type + "s";
-        let barName = type + "Bar";
-        // let imageConst = `IMAGES_STATUSBAR_${type.toUpperCase()}`;
-        let index = this.level[plural].indexOf(object);
-
-        this.level[plural].splice(index, 1)
-        this[plural].push(object);
-        this[barName].quantity++;
     }
 
     checkCollectingCoins() {
@@ -109,15 +84,11 @@ class World {
     checkThrowObjects() {
         setInterval(() => {
             if (this.keyboard.D) {
-                if (this.bottles.length > "") {
-                    let bottle = new ThrowableObject(this.character.x, this.character.y);
-                    this.throwableBottles.push(bottle);
-                    this.bottles.pop();
-                    this.bottleBar.quantity--;
-                }
+                this.throwBottle();
             }
         }, 1000 / 10);
     }
+
 
 
     draw() {
@@ -181,5 +152,38 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    getObject(object) {
+        let type = object.constructor.name.toLowerCase();
+        let plural = type + "s";
+        let barName = type + "Bar";
+        let index = this.level[plural].indexOf(object);
+        this.level[plural].splice(index, 1)
+        this[plural].push(object);
+        this[barName].quantity++;
+    }
+
+    throwBottle() {
+        if (this.bottles.length > "") {
+            let bottle = new ThrowableObject(this.character.x, this.character.y);
+            this.throwableBottles.push(bottle);
+            this.bottles.pop();
+            this.bottleBar.quantity--;
+        }
+    }
+
+    enemyHitOrDie(hittenEnemy, index, bottle) {
+        if (hittenEnemy instanceof Endboss) {
+            this.endbossBar.setPercentage(hittenEnemy.energy);
+            hittenEnemy.hit(0);
+        }
+        if (hittenEnemy.energy == 0) {
+            hittenEnemy.enemieDies(hittenEnemy, index);
+        }
+        bottle.energy = 0;
+        setTimeout(() => {
+            this.throwableBottles.pop();
+        }, 1000 / 50);
     }
 }
