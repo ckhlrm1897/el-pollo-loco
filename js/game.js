@@ -3,17 +3,10 @@ let world;
 let keyboard = new Keyboard()
 
 function init() {
-
-    setTimeout(() => {
-        //    canvas = document.getElementById("canvas");
-        //    document.getElementById('canvas').classList.remove("d_none")
-        //    document.getElementById('home-screen').classList.add('d_none')
-        //    world = new World(canvas, keyboard);
-    }, 5000);
-    
-
-    // console.log('My Character is', world['character']);
-
+    canvas = document.getElementById("canvas");
+    document.getElementById('canvas').classList.remove("d_none")
+    document.getElementById('home_screen').classList.add('d_none')
+    world = new World(canvas, keyboard);
 }
 
 document.addEventListener('keydown', (event) => {
@@ -31,20 +24,20 @@ document.addEventListener('keydown', (event) => {
 
     if (event.keyCode == 37) {
         keyboard.LEFT = true;
-    }   
-    
+    }
+
     if (event.keyCode == 40) {
         keyboard.DOWN = true;
-    }   
-    
+    }
+
     if (event.keyCode == 32) {
         keyboard.SPACE = true;
-    }    
+    }
 });
 
 document.addEventListener('keyup', (event) => {
 
-     if (event.keyCode == 68) {
+    if (event.keyCode == 68) {
         keyboard.D = false;
     }
 
@@ -58,13 +51,28 @@ document.addEventListener('keyup', (event) => {
 
     if (event.keyCode == 37) {
         keyboard.LEFT = false;
-    }   
-    
+    }
+
     if (event.keyCode == 40) {
         keyboard.DOWN = false;
-    }   
-    
+    }
+
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
-    }    
+    }
 });
+
+function fullscreen() {
+    let fullscreen = document.getElementById('canvas');
+    openFullscreen(fullscreen)
+}
+
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
