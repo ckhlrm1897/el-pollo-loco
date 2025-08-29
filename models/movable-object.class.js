@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
     speedX = 0;
     acceleration = 2.5;
     lastHit = 0;
+    lastMove = 0;
 
     applyGravity() {
         setInterval(() => {
@@ -41,6 +42,11 @@ class MovableObject extends DrawableObject {
 
     isAlive() {
         return this.energy > 0;
+    }
+
+    isInIdle(){
+        if (!world.keyboard.SPACE && !world.keyboard.D && !world.keyboard.RIGHT && !world.keyboard.LEFT)
+        return true;
     }
 
     isHurt() {

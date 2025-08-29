@@ -36,22 +36,26 @@ h1 {
 canvas {
     background-color: black;
     position: relative;
-    /* margin: auto; */
+    display: block;
 }
 
 .home_screen {
     position: relative;
+    display: block;
+    height: 480px;
+    width: 720px;
 }
 
-.info_btn{
+.info_btn {
     position: absolute;
     top: 10px;
 }
 
 
 img {
-    height: 480px;
-    width: 720px;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 .settings {
@@ -111,4 +115,50 @@ button:hover {
 
 .items_center {
     align-items: center;
+}
+
+.jump_btn {
+    position: absolute;
+    bottom: 65px;
+    right: 78px;
+}
+
+.bottle_btn {
+    position: absolute;
+    bottom: 65px;
+    right: 146px;
+}
+
+.run_right_btn {
+    position: absolute;
+    bottom: 65px;
+    left: 78px;
+}
+
+.run_left_btn {
+    position: absolute;
+    bottom: 65px;
+    left: 0px;
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+        width: 100%;
+    }
+
+    .home_screen {
+        height: 100vh;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+
+    .home_screen {
+        width: 100%;
+    }
 }
