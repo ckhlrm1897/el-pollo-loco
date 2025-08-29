@@ -1,12 +1,34 @@
 let canvas;
 let world;
 let keyboard = new Keyboard()
+let audio = new Audio('audio/acoustic-mexican-guitar-218610.mp3');
+let mute = true;
 
-function init() {
+function unMute() {
+    if (mute) {
+        audio.play();
+        document.getElementById("mute").classList.add('d_none');
+        document.getElementById("un-mute").classList.remove('d_none');
+        mute = false;
+    } else {
+        audio.pause();
+        document.getElementById("un-mute").classList.add('d_none');
+        document.getElementById("mute").classList.remove('d_none');
+        mute = true;
+    }
+}
+
+function startGame() {
     canvas = document.getElementById("canvas");
-    document.getElementById('canvas').classList.remove("d_none")
-    document.getElementById('home_screen').classList.add('d_none')
+    document.getElementById('canvas').classList.remove("d_none");
+    document.getElementById('home-screen').classList.add('d_none');
     world = new World(canvas, keyboard);
+}
+
+function stopGame() {
+    document.getElementById('canvas').classList.add("d_none");
+    document.getElementById('home-screen').classList.remove('d_none');
+    
 }
 
 document.addEventListener('keydown', (event) => {

@@ -35,9 +35,18 @@ h1 {
 
 canvas {
     background-color: black;
+    position: relative;
     /* margin: auto; */
 }
 
+.home_screen {
+    position: relative;
+}
+
+.info_btn{
+    position: absolute;
+    top: 10px;
+}
 
 
 img {
@@ -46,13 +55,13 @@ img {
 }
 
 .settings {
-    top: 285px;
+    top: 10px;
     height: 60px;
     justify-content: end;
 }
 
 .mobile_buttons {
-    top: 685px;
+    top: 413px;
 }
 
 button img {

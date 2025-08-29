@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
+    <link rel="shortcut icon" href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png" type="image/x-icon">
     <link rel="stylesheet" href="fonts/font.css">
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js"></script>
@@ -36,14 +37,16 @@
 
     <h1>El pollo loco</h1>
     <canvas class="d_none" id="canvas" width="720px" height="480px">
+        <button class="no_border" id="mute" onclick="unMute()">
+            <img src="img/10_buttons/settings/mute_button.png" alt="walk_right">
+        </button>
+        <button class="no_border d_none" id="un-mute" onclick="unMute()">
+            <img src="img/10_buttons/settings/loutspeaker_button.png" alt="walk_right">
+        </button>
     </canvas>
 
-      <audio autoplay loop>
-            <source src="audio/acoustic-mexican-guitar-218610.mp3" type="audio/mpeg">
-            Sorry - Ihr Browser hat keine Unterstützung für dieses Audio-Format.
-        </audio>
-    <div id="home_screen">‚
-  
+    <div class="home_screen" id="home-screen">
+
         <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
         <div class="settings width_720 position_absolute d_flex items_center">
             <button class="no_border" onclick="fullscreen()">
@@ -53,13 +56,13 @@
                 <button class="no_border">
                     <img src="img/10_buttons/settings/info_button.png" alt="walk_left">
                 </button>
-                <button class="no_border">
+                <button class="no_border" id="mute" onclick="unMute()">
                     <img src="img/10_buttons/settings/mute_button.png" alt="walk_right">
                 </button>
-                <button class="no_border d_none">
+                <button class="no_border d_none" id="un-mute" onclick="unMute()">
                     <img src="img/10_buttons/settings/loutspeaker_button.png" alt="walk_right">
                 </button>
-                <button class="no_border" onclick="init()">
+                <button class="no_border" onclick="startGame()">
                     <img src="img/10_buttons/settings/play_button.png" alt="walk_right">
                 </button>
             </div>
@@ -86,8 +89,6 @@
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>
