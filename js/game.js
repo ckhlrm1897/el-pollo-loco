@@ -6,10 +6,12 @@ let mute = true;
 
 function unMute() {
     if (mute) {
-        audio.play();
-        document.getElementById("mute").classList.add('d_none');
+       audio.play();
+       let muteRef = document.getElementById("mute");
+       muteRef.classList.add("d_none")
         document.getElementById("un-mute").classList.remove('d_none');
         mute = false;
+        
     } else {
         audio.pause();
         document.getElementById("un-mute").classList.add('d_none');

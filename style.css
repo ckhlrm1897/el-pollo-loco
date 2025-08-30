@@ -51,7 +51,6 @@ canvas {
     top: 10px;
 }
 
-
 img {
     position: absolute;
     height: 100%;
@@ -64,12 +63,15 @@ img {
     justify-content: end;
 }
 
-.mobile_buttons {
-    top: 413px;
+.mobile_btns {
+    display: none;
+    top: 100vh;
+    width: 100%;
+    z-index: 1;
 }
 
 button img {
-    height: 70px;
+    height: 66px;
     width: 70px;
 }
 
@@ -141,6 +143,35 @@ button:hover {
     left: 0px;
 }
 
+.play_btn {
+    position: absolute;
+    top: 15px;
+    right: 78px;
+}
+
+.loud_btn {
+    position: absolute;
+    top: 15px;
+    right: 156px;
+}
+
+.mute_btn {
+    position: absolute;
+    top: 15px;
+    right: 156px;
+}
+
+.info_btn {
+    position: absolute;
+    top: 15px;
+    right: calc(156px + 78px);
+}
+
+.fulls_btn {
+    position: absolute;
+    top: 285px;
+}
+
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
@@ -150,6 +181,17 @@ button:hover {
     .home_screen {
         height: 100vh;
         width: 100%;
+    }
+
+    .fulls_btn {
+        display: none;
+    }
+
+    .mobile_btns {
+    display: unset;
+    }
+    h1 {
+        display: none;
     }
 }
 

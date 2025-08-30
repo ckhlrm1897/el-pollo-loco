@@ -11,7 +11,6 @@
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/throwable-object.class.js"></script>
-    <script src="models/home-screen.class.js"></script>
     <script src="models/bottle.class.js"></script>
     <script src="models/coin.class.js"></script>
     <script src="models/background.class.js"></script>
@@ -34,36 +33,17 @@
 </head>
 
 <body>
-    <!-- 
-    <h1>El pollo loco</h1> -->
+    
+    <h1>El pollo loco</h1>
     <canvas class="d_none" id="canvas" width="720px" height="480px">
-        <button class="no_border" id="mute" onclick="unMute()">
-            <img src="img/10_buttons/settings/mute_button.png" alt="walk_right">
-        </button>
-        <button class="no_border d_none" id="un-mute" onclick="unMute()">
-            <img src="img/10_buttons/settings/loutspeaker_button.png" alt="walk_right">
-        </button>
+
     </canvas>
 
-    <div class="home_screen" id="home-screen">
+    <button class="no_border fulls_btn" onclick="fullscreen()">
+        <img src="img/10_buttons/settings/fullscreen_button.png" alt="fullscreen">
+    </button>
 
-        <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-        <button class="no_border" onclick="fullscreen()">
-            <img src="img/10_buttons/settings/fullscreen_button.png" alt="walk_left">
-        </button>
-        <button class="no_border">
-            <img src="img/10_buttons/settings/info_button.png" alt="walk_left">
-        </button>
-        <button class="no_border" id="mute" onclick="unMute()">
-            <img src="img/10_buttons/settings/mute_button.png" alt="walk_right">
-        </button>
-        <button class="no_border d_none" id="un-mute" onclick="unMute()">
-            <img src="img/10_buttons/settings/loutspeaker_button.png" alt="walk_right">
-        </button>
-        <button class="no_border" onclick="startGame()">
-            <img src="img/10_buttons/settings/play_button.png" alt="walk_right">
-        </button>
-
+    <div class="mobile_btns">
         <button class="no_border run_left_btn">
             <img src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_left">
         </button>
@@ -77,6 +57,25 @@
         <button class="no_border jump_btn">
             <img src="img/10_buttons/mobile_buttons/mobile_button_jump.png" alt="walk_left">
         </button>
+    </div>
+
+    <div class="home_screen" id="home-screen">
+
+        <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
+        <button class="no_border info_btn">
+            <img src="img/10_buttons/settings/info_button.png" alt="info_btn">
+        </button>
+        <button class="no_border mute_btn" id="mute" onclick="unMute()">
+            <img src="img/10_buttons/settings/mute_button.png" alt="mute_btn">
+        </button>
+        <button class="no_border d_none loud_btn" id="un-mute" onclick="unMute()">
+            <img src="img/10_buttons/settings/loutspeaker_button.png" alt="loud_btn">
+        </button>
+        <button class="no_border play_btn" onclick="startGame()">
+            <img src="img/10_buttons/settings/play_button.png" alt="play_button">
+        </button>
+
+
 
     </div>
 </body>
