@@ -73,6 +73,9 @@ img {
 button img {
     height: 66px;
     width: 70px;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    user-select: none;
 }
 
 button {
@@ -188,8 +191,9 @@ button:hover {
     }
 
     .mobile_btns {
-    display: unset;
+        display: unset;
     }
+
     h1 {
         display: none;
     }

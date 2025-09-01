@@ -28,7 +28,7 @@
     <script src="models/bars/coinBar.class.js"></script>
     <script src="models/bars/bottleBar.class.js"></script>
     <script src="level/level1.js"></script>
-    <script src="/js/game.js"></script>
+    
 
 </head>
 
@@ -44,17 +44,17 @@
     </button>
 
     <div class="mobile_btns">
-        <button class="no_border run_left_btn">
+        <button class="no_border run_left_btn" id="left-btn">
             <img src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_left">
         </button>
-        <button class="no_border run_right_btn">
+        <button class="no_border run_right_btn" id="right-btn">
             <img class="rotate_180" src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_right">
         </button>
 
-        <button class="no_border bottle_btn">
+        <button class="no_border bottle_btn" id="bottle-btn">
             <img src="img/10_buttons/mobile_buttons/mobile_button_bottle.png" alt="jump">
         </button>
-        <button class="no_border jump_btn">
+        <button class="no_border jump_btn" id="jump-btn">
             <img src="img/10_buttons/mobile_buttons/mobile_button_jump.png" alt="walk_left">
         </button>
     </div>
@@ -79,5 +79,5 @@
 
     </div>
 </body>
-
+<script src="/js/game.js"></script>
 </html>

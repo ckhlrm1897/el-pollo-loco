@@ -3,15 +3,19 @@ let world;
 let keyboard = new Keyboard()
 let audio = new Audio('audio/acoustic-mexican-guitar-218610.mp3');
 let mute = true;
+let btn_left = document.getElementById("left-btn");
+let btn_right = document.getElementById("right-btn");
+let btn_throw = document.getElementById("bottle-btn");
+let btn_jump = document.getElementById("jump-btn");
 
 function unMute() {
     if (mute) {
-       audio.play();
-       let muteRef = document.getElementById("mute");
-       muteRef.classList.add("d_none")
+        audio.play();
+        let muteRef = document.getElementById("mute");
+        muteRef.classList.add("d_none")
         document.getElementById("un-mute").classList.remove('d_none');
         mute = false;
-        
+
     } else {
         audio.pause();
         document.getElementById("un-mute").classList.add('d_none');
@@ -30,8 +34,49 @@ function startGame() {
 function stopGame() {
     document.getElementById('canvas').classList.add("d_none");
     document.getElementById('home-screen').classList.remove('d_none');
-    
+
 }
+
+btn_right.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.RIGHT = true;
+})
+
+
+btn_right.addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.RIGHT = false;
+})
+
+btn_left.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.LEFT = true;
+})
+
+btn_left.addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.LEFT = false;
+})
+
+btn_throw.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.D = true;
+})
+
+btn_throw.addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.D = false;
+})
+
+btn_jump.addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.SPACE = true;
+})
+
+btn_jump.addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.SPACE = false;
+})
 
 document.addEventListener('keydown', (event) => {
     if (event.keyCode == 68) {
