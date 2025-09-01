@@ -114,6 +114,7 @@ class Character extends MovableObject {
            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 stopGame();
+                this.world.playGame = false;
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.idlTime = 0;

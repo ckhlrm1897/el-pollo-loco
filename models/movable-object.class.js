@@ -88,6 +88,7 @@ class MovableObject extends DrawableObject {
 
     enemieDies(enemy) {
         this.energy = 0;
+        if (enemy instanceof Chicken || enemy instanceof SmallChicken)
         setTimeout(() => {
             level1.enemies = level1.enemies.filter(e => e !== enemy);
         }, 1000);

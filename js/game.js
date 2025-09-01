@@ -8,6 +8,13 @@ let btn_right = document.getElementById("right-btn");
 let btn_throw = document.getElementById("bottle-btn");
 let btn_jump = document.getElementById("jump-btn");
 let intervalIds = [];
+let win = false;
+let lose = false;
+
+
+function init() {
+    // getFromLocalStorage();
+}
 
 function unMute() {
     if (mute) {
@@ -16,17 +23,29 @@ function unMute() {
         muteRef.classList.add("d_none")
         document.getElementById("un-mute").classList.remove('d_none');
         mute = false;
-        let test = localStorage.getItem("value")
-        console.log(test);
-        
-
     } else {
         audio.pause();
         document.getElementById("un-mute").classList.add('d_none');
         document.getElementById("mute").classList.remove('d_none');
         mute = true;
     }
+    // saveToLocalStorage();
 }
+
+// function saveToLocalStorage(){
+//     localStorage.setItem("mute", JSON.stringify(mute));
+// }
+
+
+// function getFromLocalStorage() {
+//     let myNewData = localStorage.getItem("mute");
+//     let obj = JSON.parse(myNewData);
+
+//     if (obj != null) {
+//         mute = obj;
+//     }
+
+// }
 
 function startGame() {
     canvas = document.getElementById("canvas");
@@ -37,10 +56,13 @@ function startGame() {
 
 function stopGame() {
     intervalIds.forEach(clearInterval);
-    setTimeout(() => {
-         document.getElementById('canvas').classList.add("d_none");
-         document.getElementById('home-screen').classList.remove('d_none');
-    }, 2000);
+    // if (win) {
+    //     // setTimeout(() => {
+    //     //     // document.getElementById('canvas').classList.add("d_none");
+    //     //     // document.getElementById('home-screen').classList.remove('d_none');
+    //     // }, 1000);
+    // }
+
 }
 
 btn_right.addEventListener('touchstart', (event) => {
@@ -137,17 +159,17 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
-function fullscreen() {
-    let fullscreen = document.getElementById('canvas');
-    openFullscreen(fullscreen)
-}
+// function fullscreen() {
+//     let fullscreen = document.getElementById('canvas');
+//     openFullscreen(fullscreen);
+// }
 
-function openFullscreen(elem) {
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-}
+// function openFullscreen(elem) {
+//     if (elem.requestFullscreen) {
+//         elem.requestFullscreen();
+//     } else if (elem.webkitRequestFullscreen) { /* Safari */
+//         elem.webkitRequestFullscreen();
+//     } else if (elem.msRequestFullscreen) { /* IE11 */
+//         elem.msRequestFullscreen();
+//     }
+// }

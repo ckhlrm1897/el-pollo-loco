@@ -1,4 +1,3 @@
-
 class World {
     character = new Character();
     level;
@@ -13,6 +12,8 @@ class World {
     bottles = [];
     bottleBar = new BottleBar();
     endbossBar = new HealthBarEndboss();
+    playGame = true;
+    endScreen = new EndScreen();
 
 
 
@@ -99,24 +100,33 @@ class World {
 
         this.addObjectsToMap(this.level.backGroundLayers);
         this.addObjectsToMap(this.level.clouds);
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
-        this.addToMap(this.coinBar);
-        this.addToMap(this.bottleBar);
-        this.addToMap(this.endbossBar);
-        this.ctx.translate(this.camera_x, 0);
+        if (this.playGame) {
+            this.ctx.translate(-this.camera_x, 0);
+            this.addToMap(this.statusBar);
+            this.addToMap(this.coinBar);
+            this.addToMap(this.bottleBar);
+            this.addToMap(this.endbossBar);
+            this.ctx.translate(this.camera_x, 0);
 
-        this.addToMap(this.character);
+            this.addToMap(this.character);
 
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableBottles);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.coins);
+            this.addObjectsToMap(this.level.enemies);
+            this.addObjectsToMap(this.throwableBottles);
+            this.addObjectsToMap(this.level.bottles);
+            this.addObjectsToMap(this.level.coins);
 
-        this.ctx.translate(-this.camera_x, 0);
-        this.ctx.font = "40px Rye-Regular";
-        this.ctx.fillText(this.coinBar.quantity, 60, 85);
-        this.ctx.fillText(this.bottleBar.quantity, 60, 125);
+            this.ctx.translate(-this.camera_x, 0);
+            this.ctx.font = "40px Rye-Regular";
+            this.ctx.fillText(this.coinBar.quantity, 60, 85);
+            this.ctx.fillText(this.bottleBar.quantity, 60, 125);
+            
+        } else if (!this.playGame){
+            this.ctx.translate(-this.camera_x, 0);
+            this.addToMap(this.endScreen);
+            this.ctx.translate(this.camera_x, 0);
+        }
+
+
 
 
         let self = this;
@@ -179,7 +189,7 @@ class World {
             this.endbossBar.setPercentage(hittenEnemy.energy);
             hittenEnemy.hit(0);
         }
-        if (hittenEnemy.energy == 0) {
+        if (hittenEnemy.energy == 0 ) {
             hittenEnemy.enemieDies(hittenEnemy, index);
         }
         bottle.energy = 0;

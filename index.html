@@ -27,21 +27,22 @@
     <script src="models/bars/health-bar-endboss.class.js"></script>
     <script src="models/bars/coinBar.class.js"></script>
     <script src="models/bars/bottleBar.class.js"></script>
+    <script src="models/endscreen.class.js"></script>
     <script src="level/level1.js"></script>
     
 
 </head>
 
-<body>
+<body onload="init()">
     
     <h1>El pollo loco</h1>
     <canvas class="d_none" id="canvas" width="720px" height="480px">
 
     </canvas>
 
-    <button class="no_border fulls_btn" onclick="fullscreen()">
+    <!-- <button class="no_border fulls_btn" onclick="fullscreen()">
         <img src="img/10_buttons/settings/fullscreen_button.png" alt="fullscreen">
-    </button>
+    </button> -->
 
     <div class="mobile_btns">
         <button class="no_border run_left_btn" id="left-btn">
