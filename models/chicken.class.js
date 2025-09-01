@@ -3,7 +3,7 @@ class Chicken extends MovableObject {
     height = 70;
     width = 70;
     energy = 20;
-    
+
     offset = {
         top: 5,
         bottom: 15,
@@ -30,22 +30,21 @@ class Chicken extends MovableObject {
         this.x = x + 200 + Math.random() * 550;
         // this.speed = 0;
         this.speed = 0.15 + Math.random() * 1;
-        this.animate();
+        this.animate(this.chickenAnimations, 1000 / 20);
+        this.animate(this.chickenMovements, 1000 / 60)
     }
 
-    animate() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-
-
-        setInterval(() => {
-            if (this.isAlive()) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else if (this.isDead()){
-                this.playAnimation(this.IMAGE_DEAD);
-                this.speed = 0;
-            }
-        }, 1000 / 20);
+    chickenAnimations = () => {
+        if (this.isAlive()) {
+            this.playAnimation(this.IMAGES_WALKING);
+        } else if (this.isDead()) {
+            this.playAnimation(this.IMAGE_DEAD);
+            this.speed = 0;
+        }
     }
+
+    chickenMovements = () => {
+        this.moveLeft();
+    }
+
 }

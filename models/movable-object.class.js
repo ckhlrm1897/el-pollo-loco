@@ -44,9 +44,9 @@ class MovableObject extends DrawableObject {
         return this.energy > 0;
     }
 
-    isInIdle(){
+    isInIdle() {
         if (!world.keyboard.SPACE && !world.keyboard.D && !world.keyboard.RIGHT && !world.keyboard.LEFT)
-        return true;
+            return true;
     }
 
     isHurt() {
@@ -78,7 +78,7 @@ class MovableObject extends DrawableObject {
     isColliding(mo) {
         return this.x + this.offset.left + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.offset.top + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-            this.x + this.offset.left < mo.x + mo.offset.left + mo.width - mo.offset.right && 
+            this.x + this.offset.left < mo.x + mo.offset.left + mo.width - mo.offset.right &&
             this.y + this.offset.top < mo.y + mo.offset.top + mo.height - mo.offset.bottom
     }
 
@@ -91,6 +91,11 @@ class MovableObject extends DrawableObject {
         setTimeout(() => {
             level1.enemies = level1.enemies.filter(e => e !== enemy);
         }, 1000);
+    }
+
+    animate(fn, time) {
+        let id = setInterval(fn, time);
+        intervalIds.push(id);
     }
 
 }

@@ -27,6 +27,7 @@ class World {
         this.setWorld();
         this.run();
         this.checkThrowObjects();
+        this.character.energy = 100;
     }
 
     setWorld() {

@@ -86,38 +86,34 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
-        this.animate();
+        this.animate(this.characterAnimations, 100);
+        this.animate(this.characterMovement, 1000/60)
     }
 
-    animate() {
-
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-
-
-            this.world.camera_x = -this.x + 80;
-        }, 1000 / 60)
 
 
 
-        setInterval(() => {
+    characterMovement = () => {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
 
-            if (this.isDead()) {
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+        this.world.camera_x = -this.x + 80;
+    }
+
+    characterAnimations = () => {
+           if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                // stopGame();
-                // this.energy = 100;
+                stopGame();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.idlTime = 0;
@@ -131,13 +127,8 @@ class Character extends MovableObject {
             else if (this.isInIdle() && this.idlTime < 50) {
                 this.playAnimation(this.IMAGES_IDLE);
                 this.idlTime++;
-                console.log(this.idlTime);
-
             } else if (this.isInIdle() && this.idlTime >= 50) {
                 this.playAnimation(this.IMAGES_LONG_IDLE)
             }
-
-        }, 100)
-
     }
 }

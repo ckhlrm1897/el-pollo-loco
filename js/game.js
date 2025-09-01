@@ -7,6 +7,7 @@ let btn_left = document.getElementById("left-btn");
 let btn_right = document.getElementById("right-btn");
 let btn_throw = document.getElementById("bottle-btn");
 let btn_jump = document.getElementById("jump-btn");
+let intervalIds = [];
 
 function unMute() {
     if (mute) {
@@ -15,6 +16,9 @@ function unMute() {
         muteRef.classList.add("d_none")
         document.getElementById("un-mute").classList.remove('d_none');
         mute = false;
+        let test = localStorage.getItem("value")
+        console.log(test);
+        
 
     } else {
         audio.pause();
@@ -32,9 +36,11 @@ function startGame() {
 }
 
 function stopGame() {
-    document.getElementById('canvas').classList.add("d_none");
-    document.getElementById('home-screen').classList.remove('d_none');
-
+    intervalIds.forEach(clearInterval);
+    setTimeout(() => {
+         document.getElementById('canvas').classList.add("d_none");
+         document.getElementById('home-screen').classList.remove('d_none');
+    }, 2000);
 }
 
 btn_right.addEventListener('touchstart', (event) => {
