@@ -9,7 +9,6 @@ let btn_throw = document.getElementById("bottle-btn");
 let btn_jump = document.getElementById("jump-btn");
 let intervalIds = [];
 let win = false;
-let lose = false;
 
 
 function init() {
@@ -54,8 +53,25 @@ function startGame() {
     world = new World(canvas, keyboard);
 }
 
+function restart() {
+    document.getElementById('game-over').classList.add('d_none');
+    document.getElementById('win').classList.add('d_none');
+    canvas;
+    world;
+    world = new World(canvas, keyboard);
+}
+
 function stopGame() {
     intervalIds.forEach(clearInterval);
+    setTimeout(() => {
+        if (win) {
+            document.getElementById('win').classList.remove('d_none')
+        } else if (!win) {
+            document.getElementById('game-over').classList.remove('d_none')
+        }
+    }, 1000);
+
+
     // if (win) {
     //     // setTimeout(() => {
     //     //     // document.getElementById('canvas').classList.add("d_none");

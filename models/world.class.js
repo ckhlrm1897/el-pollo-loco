@@ -13,7 +13,6 @@ class World {
     bottleBar = new BottleBar();
     endbossBar = new HealthBarEndboss();
     playGame = true;
-    endScreen = new EndScreen();
 
 
 
@@ -26,7 +25,9 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.run();
+        this.run(this.checkCollisions, 1000 / 20);
+        this.run(this.checkCollectingBottles, 1000 / 20);
+        this.run(this.checkCollectingCoins, 1000 / 20);
         this.checkThrowObjects();
         this.character.energy = 100;
     }
@@ -35,15 +36,17 @@ class World {
         this.character.world = this;
     }
 
-    run() {
-        setInterval(() => {
-            this.checkCollisions();
-            this.checkCollectingBottles();
-            this.checkCollectingCoins();
-        }, 1000 / 20);
+    run(fn, time) {
+        let id = setInterval(fn, time);
+        intervalIds.push(id);
     }
 
-    checkCollisions() {
+    animate(fn, time) {
+        let id = setInterval(fn, time);
+        intervalIds.push(id);
+    }
+
+    checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             this.checkHitByBottle(enemy);
             if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
@@ -67,7 +70,7 @@ class World {
         })
     }
 
-    checkCollectingBottles() {
+    checkCollectingBottles = () => {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.getObject(bottle);
@@ -75,7 +78,7 @@ class World {
         })
     }
 
-    checkCollectingCoins() {
+    checkCollectingCoins = () => {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.getObject(coin);
@@ -119,20 +122,16 @@ class World {
             this.ctx.font = "40px Rye-Regular";
             this.ctx.fillText(this.coinBar.quantity, 60, 85);
             this.ctx.fillText(this.bottleBar.quantity, 60, 125);
-            
-        } else if (!this.playGame){
-            this.ctx.translate(-this.camera_x, 0);
-            this.addToMap(this.endScreen);
-            this.ctx.translate(this.camera_x, 0);
+
+            let self = this;
+            requestAnimationFrame(function () {
+                self.draw();
+            });
+
+        } else if (!this.playGame) {
+            // this.ctx.translate(-this.camera_x, 0);
+            // this.ctx.translate(this.camera_x, 0);
         }
-
-
-
-
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
     }
 
     addObjectsToMap(objects) {
@@ -189,7 +188,7 @@ class World {
             this.endbossBar.setPercentage(hittenEnemy.energy);
             hittenEnemy.hit(0);
         }
-        if (hittenEnemy.energy == 0 ) {
+        if (hittenEnemy.energy == 0) {
             hittenEnemy.enemieDies(hittenEnemy, index);
         }
         bottle.energy = 0;

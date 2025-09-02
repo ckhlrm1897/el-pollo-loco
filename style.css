@@ -39,6 +39,14 @@ canvas {
     display: block;
 }
 
+.game_over{
+    position: absolute;
+    z-index: 2;
+    margin: auto !important;
+    width: 700px; 
+    height: 380px;
+}
+
 .home_screen {
     position: relative;
     display: block;

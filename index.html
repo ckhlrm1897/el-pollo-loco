@@ -29,16 +29,23 @@
     <script src="models/bars/bottleBar.class.js"></script>
     <script src="models/endscreen.class.js"></script>
     <script src="level/level1.js"></script>
-    
+
 
 </head>
 
 <body onload="init()">
-    
+
     <h1>El pollo loco</h1>
+    <img src="img/You won, you lost/Game Over.png" id="game-over" class="game_over d_none" alt="">
+    <img src="img/You won, you lost/You Win A.png" id="win" class="game_over d_none" alt="">
+    <button class="no_border play_btn" onclick="restart()">
+        <img src="img/10_buttons/settings/play_button.png" alt="play_button">
+    </button>
     <canvas class="d_none" id="canvas" width="720px" height="480px">
 
     </canvas>
+
+
 
     <!-- <button class="no_border fulls_btn" onclick="fullscreen()">
         <img src="img/10_buttons/settings/fullscreen_button.png" alt="fullscreen">
@@ -61,7 +68,6 @@
     </div>
 
     <div class="home_screen" id="home-screen">
-
         <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
         <button class="no_border info_btn">
             <img src="img/10_buttons/settings/info_button.png" alt="info_btn">
@@ -75,10 +81,8 @@
         <button class="no_border play_btn" onclick="startGame()">
             <img src="img/10_buttons/settings/play_button.png" alt="play_button">
         </button>
-
-
-
     </div>
 </body>
 <script src="/js/game.js"></script>
+
 </html>
