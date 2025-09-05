@@ -33,23 +33,16 @@
 
 </head>
 
-<body onload="init()">
+<body>
 
     <h1>El pollo loco</h1>
     <img src="img/You won, you lost/Game Over.png" id="game-over" class="game_over d_none" alt="">
     <img src="img/You won, you lost/You Win A.png" id="win" class="game_over d_none" alt="">
-    <button class="no_border play_btn" onclick="restart()">
-        <img src="img/10_buttons/settings/play_button.png" alt="play_button">
+    <button class="no_border restart_btn d_none" onclick="restart()" id="restart">
+        <img src="img/10_buttons/restart.png" alt="play_button">
     </button>
-    <canvas class="d_none" id="canvas" width="720px" height="480px">
 
-    </canvas>
-
-
-
-    <!-- <button class="no_border fulls_btn" onclick="fullscreen()">
-        <img src="img/10_buttons/settings/fullscreen_button.png" alt="fullscreen">
-    </button> -->
+    <canvas class="d_none" id="canvas" width="720px" height="480px"></canvas>
 
     <div class="mobile_btns">
         <button class="no_border run_left_btn" id="left-btn">

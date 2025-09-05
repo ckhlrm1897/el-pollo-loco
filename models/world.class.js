@@ -41,15 +41,13 @@ class World {
         intervalIds.push(id);
     }
 
-    animate(fn, time) {
-        let id = setInterval(fn, time);
-        intervalIds.push(id);
-    }
-
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             this.checkHitByBottle(enemy);
-            if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+            if (this.character.isColliding(enemy) && enemy instanceof Endboss){
+                this.character.hit(100);
+                this.statusBar.setPercentage(this.character.energy);
+            } else  if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies[index].enemieDies(enemy, index);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
@@ -127,10 +125,6 @@ class World {
             requestAnimationFrame(function () {
                 self.draw();
             });
-
-        } else if (!this.playGame) {
-            // this.ctx.translate(-this.camera_x, 0);
-            // this.ctx.translate(this.camera_x, 0);
         }
     }
 

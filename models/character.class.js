@@ -102,7 +102,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.LEFT && this.x > 0 && this.isAlive) {
             this.moveLeft();
             this.otherDirection = true;
-            
+
         }
 
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -114,11 +114,12 @@ class Character extends MovableObject {
     characterAnimations = () => {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
-            win = false;
+
             stopGame();
             setTimeout(() => {
+                world.camera_x = 0
+                win = false;
                 world.playGame = false;
-                
             }, 1000);
         }
         else if (this.isHurt()) {
@@ -130,8 +131,9 @@ class Character extends MovableObject {
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
             this.idlTime = 0;
-        }
-        else if (this.isInIdle() && this.idlTime < 50) {
+        } else if (this.world.keyboard.D) {
+            this.idlTime = 0;
+        } else if (this.isInIdle() && this.idlTime < 50) {
             this.playAnimation(this.IMAGES_IDLE);
             this.idlTime++;
         } else if (this.isInIdle() && this.idlTime >= 50) {

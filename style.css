@@ -103,7 +103,7 @@ button:hover {
 }
 
 .d_none {
-    display: none;
+    display: none !important;
 }
 
 .width_720 {
@@ -160,6 +160,13 @@ button:hover {
     right: 78px;
 }
 
+.restart_btn {
+    display: flex;
+    top: 15px;
+    right: 78px;
+    z-index: 3;
+}
+
 .loud_btn {
     position: absolute;
     top: 15px;
@@ -214,5 +221,11 @@ button:hover {
 
     .home_screen {
         width: 100%;
+    }
+}
+
+@media (min-width : 319px) and (max-width: 480px){
+    canvas {
+        display: none;
     }
 }

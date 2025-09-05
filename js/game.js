@@ -54,11 +54,14 @@ function startGame() {
 }
 
 function restart() {
+    world = null;
     document.getElementById('game-over').classList.add('d_none');
     document.getElementById('win').classList.add('d_none');
-    canvas;
-    world;
+    keyboard = new Keyboard()
+    intervalIds = [];
+    win = false;
     world = new World(canvas, keyboard);
+     document.getElementById('restart').classList.add('d_none');
 }
 
 function stopGame() {
@@ -69,15 +72,8 @@ function stopGame() {
         } else if (!win) {
             document.getElementById('game-over').classList.remove('d_none')
         }
+    document.getElementById('restart').classList.remove('d_none');
     }, 1000);
-
-
-    // if (win) {
-    //     // setTimeout(() => {
-    //     //     // document.getElementById('canvas').classList.add("d_none");
-    //     //     // document.getElementById('home-screen').classList.remove('d_none');
-    //     // }, 1000);
-    // }
 
 }
 

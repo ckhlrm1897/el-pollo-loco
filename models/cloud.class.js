@@ -8,18 +8,18 @@ class Cloud extends MovableObject {
         super().loadImage(image);
         this.x = x;
         this.x += Math.random() * 220 
-        this.animate(this.moveLeft, 1000 / 30);
+        this.animate();
 
     } 
 
-    // animate() {
-    //     setInterval(() => {
-    //         this.moveLeft();
-    //     }, 1000 / 30)
+    animate() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 30)
 
-    // }
+    }
 
-    // moveLeft = () => {
+     // moveLeft = () => {
     //     this.moveLeft()
     // }
 }
