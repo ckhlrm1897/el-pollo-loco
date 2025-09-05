@@ -1,4 +1,3 @@
-let canvas;
 let world;
 let keyboard = new Keyboard()
 let audio = new Audio('audio/acoustic-mexican-guitar-218610.mp3');
@@ -19,6 +18,7 @@ let chicken_sound = new Audio('audio/chicken_sound.mp3');
 let punch_sound = new Audio('audio/punch.mp3');
 let intervalIds = [];
 let win = false;
+let canvas = document.getElementById("canvas");
 
 
 function init() {
@@ -80,7 +80,6 @@ function saveToLocalStorage() {
     localStorage.setItem("mute", JSON.stringify(mute));
 }
 
-
 function getFromLocalStorage() {
     let myNewData = localStorage.getItem("mute");
     let obj = JSON.parse(myNewData);
@@ -93,8 +92,7 @@ function getFromLocalStorage() {
 
 function startGame() {
     audio.play();
-    canvas = document.getElementById("canvas");
-    document.getElementById('canvas').classList.remove("d_none");
+    canvas.classList.remove("d_none");
     document.getElementById('home-screen').classList.add('d_none');
     world = new World(canvas, keyboard);
 }
@@ -109,6 +107,7 @@ function restart() {
     win = false;
     world = new World(canvas, keyboard);
     document.getElementById('restart').classList.add('d_none');
+    document.getElementById('exit').classList.add('d_none');
 }
 
 function stopGame() {
@@ -120,8 +119,17 @@ function stopGame() {
             document.getElementById('game-over').classList.remove('d_none')
         }
         document.getElementById('restart').classList.remove('d_none');
+        document.getElementById('exit').classList.remove('d_none');
     }, 1000);
+}
 
+function exit(){
+    document.getElementById('home-screen').classList.remove('d_none');
+    canvas.classList.add("d_none");
+    document.getElementById('game-over').classList.add('d_none');
+    document.getElementById('win').classList.add('d_none');
+    document.getElementById('exit').classList.add('d_none');
+    document.getElementById('restart').classList.add('d_none');
 }
 
 btn_right.addEventListener('touchstart', (event) => {

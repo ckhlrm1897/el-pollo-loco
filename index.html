@@ -41,6 +41,9 @@
     <button class="no_border restart_btn d_none" onclick="restart()" id="restart">
         <img src="img/10_buttons/restart.png" alt="play_button">
     </button>
+        <button class="no_border exit_btn d_none" onclick="exit()" id="exit">
+        <img src="img/10_buttons/exit.png" alt="play_button">
+    </button>
 
     <canvas class="d_none" id="canvas" width="720px" height="480px"></canvas>
 
@@ -74,6 +77,10 @@
         <button class="no_border play_btn" onclick="startGame()">
             <img src="img/10_buttons/settings/play_button.png" alt="play_button">
         </button>
+    </div>
+
+    <div class="rotate_overlay d_flex justify_center align_center items_center">
+        <img src="img/rotate device.png" alt="rotate_device">
     </div>
 </body>
 <script src="/js/game.js"></script>

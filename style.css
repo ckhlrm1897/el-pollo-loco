@@ -114,6 +114,10 @@ button:hover {
     display: flex;
 }
 
+.justify_center{
+    justify-content: center;
+}
+
 .space_between {
     justify-content: space-between;
 }
@@ -161,9 +165,16 @@ button:hover {
 }
 
 .restart_btn {
-    display: flex;
-    top: 15px;
-    right: 78px;
+   position: absolute;
+    top: 70%;
+    left: 40%;
+    z-index: 3;
+}
+
+.exit_btn {
+    position: absolute;
+    top: 70%;
+    left: 50%;
     z-index: 3;
 }
 
@@ -188,6 +199,11 @@ button:hover {
 .fulls_btn {
     position: absolute;
     top: 285px;
+}
+
+.rotate_overlay {
+    height: 100%;
+    display: none;
 }
 
 @media only screen and (max-height: 480px) {
@@ -231,5 +247,13 @@ button:hover {
 
     .home_screen {
         display: none;
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .rotate_overlay {
+        display: flex;
     }
 }
