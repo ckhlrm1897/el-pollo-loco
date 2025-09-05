@@ -38,16 +38,21 @@
     <h1>El pollo loco</h1>
     <img src="img/You won, you lost/Game Over.png" id="game-over" class="game_over d_none" alt="">
     <img src="img/You won, you lost/You Win A.png" id="win" class="game_over d_none" alt="">
-    <button class="no_border restart_btn d_none" onclick="restart()" id="restart">
-        <img src="img/10_buttons/restart.png" alt="play_button">
-    </button>
-        <button class="no_border exit_btn d_none" onclick="exit()" id="exit">
-        <img src="img/10_buttons/exit.png" alt="play_button">
-    </button>
+    <div class="exit_or_restart_container">
+        <div class="exit_or_restart_buttons d_flex justify_center">
+            <button class="no_border restart_btn d_none" onclick="restart()" id="restart">
+                <img src="img/10_buttons/restart.png" alt="play_button">
+            </button>
+            <button class="no_border exit_btn d_none" onclick="exit()" id="exit">
+                <img src="img/10_buttons/exit.png" alt="play_button">
+            </button>
+        </div>
+    </div>
+
 
     <canvas class="d_none" id="canvas" width="720px" height="480px"></canvas>
 
-    <div class="mobile_btns">
+    <div class="mobile_btns d_none" id="mobile-btns">
         <button class="no_border run_left_btn" id="left-btn">
             <img src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_left">
         </button>
@@ -65,7 +70,7 @@
 
     <div class="home_screen" id="home-screen">
         <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-        <button class="no_border info_btn">
+        <button class="no_border info_btn" id="info" onclick="info()">
             <img src="img/10_buttons/settings/info_button.png" alt="info_btn">
         </button>
         <button class="no_border mute_btn" id="mute" onclick="unMute()">
@@ -82,6 +87,10 @@
     <div class="rotate_overlay d_flex justify_center align_center items_center">
         <img src="img/rotate device.png" alt="rotate_device">
     </div>
+
+    <footer>
+        <a href="impressum.html">Impressum</a>
+    </footer>
 </body>
 <script src="/js/game.js"></script>
 

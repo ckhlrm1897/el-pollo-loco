@@ -95,6 +95,7 @@ function startGame() {
     canvas.classList.remove("d_none");
     document.getElementById('home-screen').classList.add('d_none');
     world = new World(canvas, keyboard);
+    document.getElementById("mobile-btns").classList.remove("d_none");
 }
 
 function restart() {
@@ -120,6 +121,7 @@ function stopGame() {
         }
         document.getElementById('restart').classList.remove('d_none');
         document.getElementById('exit').classList.remove('d_none');
+        document.getElementById('mobile-btns').classList.add('d_none');
     }, 1000);
 }
 
@@ -130,6 +132,7 @@ function exit(){
     document.getElementById('win').classList.add('d_none');
     document.getElementById('exit').classList.add('d_none');
     document.getElementById('restart').classList.add('d_none');
+    document.getElementById("mobile-btns").classList.add("d_none");
 }
 
 btn_right.addEventListener('touchstart', (event) => {

@@ -11,6 +11,7 @@
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 body {
@@ -39,11 +40,11 @@ canvas {
     display: block;
 }
 
-.game_over{
+.game_over {
     position: absolute;
     z-index: 2;
     margin: auto !important;
-    width: 700px; 
+    width: 700px;
     height: 380px;
 }
 
@@ -87,6 +88,7 @@ button img {
 }
 
 button {
+    width: 80px;
     background-color: transparent;
 }
 
@@ -114,7 +116,7 @@ button:hover {
     display: flex;
 }
 
-.justify_center{
+.justify_center {
     justify-content: center;
 }
 
@@ -162,20 +164,33 @@ button:hover {
     position: absolute;
     top: 15px;
     right: 78px;
+    
+}
+
+.exit_or_restart_container {
+    position: absolute;
+    z-index: 3;
+    top: 75%;
+    margin: auto !important;
+    width: 140px;
+}
+
+.exit_or_restart_buttons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .restart_btn {
-   position: absolute;
-    top: 70%;
-    left: 40%;
-    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .exit_btn {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .loud_btn {
@@ -206,6 +221,11 @@ button:hover {
     display: none;
 }
 
+footer {
+    position: absolute;
+    bottom: 10px;
+}
+
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
@@ -228,6 +248,10 @@ button:hover {
     h1 {
         display: none;
     }
+
+    .exit_or_restart_container{
+        top: 92%;
+    }
 }
 
 @media only screen and (max-width: 720px) {
@@ -240,12 +264,20 @@ button:hover {
     }
 }
 
-@media (min-width : 319px) and (max-width: 480px){
+@media (min-width : 319px) and (max-width: 480px) {
     canvas {
         display: none;
     }
 
     .home_screen {
+        display: none;
+    }
+    
+    #win{
+        display: none;
+    }
+
+    #game-over{
         display: none;
     }
 
