@@ -71,6 +71,7 @@ class Endboss extends MovableObject {
 
     endbossAnimations = () => {
         if (this.isDead()) {
+            audio.pause();
             win_sound.play();
             if (this.i <= 4) {
                 this.playAnimation(this.IMAGES_DEAD);

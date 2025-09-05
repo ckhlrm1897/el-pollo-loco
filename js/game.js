@@ -3,6 +3,7 @@ let world;
 let keyboard = new Keyboard()
 let audio = new Audio('audio/acoustic-mexican-guitar-218610.mp3');
 let mute = true;
+let muteRef = document.getElementById("mute");
 let btn_left = document.getElementById("left-btn");
 let btn_right = document.getElementById("right-btn");
 let btn_throw = document.getElementById("bottle-btn");
@@ -12,50 +13,86 @@ let throw_sound = new Audio('audio/throw.mp3');
 let get_coin_sound = new Audio('audio/get_coin.mp3');
 let pick_up_bottle_sound = new Audio('audio/pick_bottle.mp3');
 let autsch_sound = new Audio('audio/autsch.mp3');
-let win_sound = new Audio ('audio/win.mp3');
-let first_contact_sound = new Audio ('audio/first_contact.mp3');
+let win_sound = new Audio('audio/win.mp3');
+let first_contact_sound = new Audio('audio/first_contact.mp3');
 let chicken_sound = new Audio('audio/chicken_sound.mp3');
-let punch_sound = new Audio ('audio/punch.mp3');
+let punch_sound = new Audio('audio/punch.mp3');
 let intervalIds = [];
 let win = false;
 
 
 function init() {
-    // getFromLocalStorage();
+    getFromLocalStorage();
+    if (mute) {
+        setAllMute();
+        document.getElementById("un-mute").classList.add('d_none');
+        document.getElementById("mute").classList.remove('d_none');
+    } else if (!mute) {
+        setAllUnMute();
+        muteRef.classList.add("d_none")
+        document.getElementById("un-mute").classList.remove('d_none');
+    }
+}
+
+function setAllMute() {
+    audio.muted = true;
+    jump_sound.muted = true;
+    throw_sound.muted = true;
+    get_coin_sound.muted = true;
+    pick_up_bottle_sound.muted = true;
+    autsch_sound.muted = true;
+    win_sound.muted = true;
+    first_contact_sound.muted = true;
+    chicken_sound.muted = true;
+    punch_sound.muted = true;
+}
+
+function setAllUnMute() {
+    audio.muted = false;
+    jump_sound.muted = false;
+    throw_sound.muted = false;
+    get_coin_sound.muted = false;
+    pick_up_bottle_sound.muted = false;
+    autsch_sound.muted = false;
+    win_sound.muted = false;
+    first_contact_sound.muted = false;
+    chicken_sound.muted = false;
+    punch_sound.muted = false;
 }
 
 function unMute() {
     if (mute) {
-        audio.play();
-        let muteRef = document.getElementById("mute");
+        setAllUnMute()
+
         muteRef.classList.add("d_none")
         document.getElementById("un-mute").classList.remove('d_none');
         mute = false;
     } else {
-        audio.pause();
+        setAllMute()
         document.getElementById("un-mute").classList.add('d_none');
         document.getElementById("mute").classList.remove('d_none');
         mute = true;
     }
-    // saveToLocalStorage();
+    saveToLocalStorage();
 }
 
-// function saveToLocalStorage(){
-//     localStorage.setItem("mute", JSON.stringify(mute));
-// }
+function saveToLocalStorage() {
+    localStorage.setItem("mute", JSON.stringify(mute));
+}
 
 
-// function getFromLocalStorage() {
-//     let myNewData = localStorage.getItem("mute");
-//     let obj = JSON.parse(myNewData);
+function getFromLocalStorage() {
+    let myNewData = localStorage.getItem("mute");
+    let obj = JSON.parse(myNewData);
 
-//     if (obj != null) {
-//         mute = obj;
-//     }
+    if (obj != null) {
+        mute = obj;
+    }
 
-// }
+}
 
 function startGame() {
+    audio.play();
     canvas = document.getElementById("canvas");
     document.getElementById('canvas').classList.remove("d_none");
     document.getElementById('home-screen').classList.add('d_none');
@@ -63,6 +100,7 @@ function startGame() {
 }
 
 function restart() {
+    audio.play();
     world = null;
     document.getElementById('game-over').classList.add('d_none');
     document.getElementById('win').classList.add('d_none');
@@ -70,7 +108,7 @@ function restart() {
     intervalIds = [];
     win = false;
     world = new World(canvas, keyboard);
-     document.getElementById('restart').classList.add('d_none');
+    document.getElementById('restart').classList.add('d_none');
 }
 
 function stopGame() {
@@ -81,7 +119,7 @@ function stopGame() {
         } else if (!win) {
             document.getElementById('game-over').classList.remove('d_none')
         }
-    document.getElementById('restart').classList.remove('d_none');
+        document.getElementById('restart').classList.remove('d_none');
     }, 1000);
 
 }
@@ -150,7 +188,9 @@ document.addEventListener('keydown', (event) => {
 
     if (event.keyCode == 32) {
         keyboard.SPACE = true;
-        jump_sound.play();
+        if (!mute) {
+            jump_sound.play();
+        }
     }
 });
 
