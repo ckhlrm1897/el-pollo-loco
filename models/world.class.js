@@ -48,9 +48,11 @@ class World {
                 this.character.hit(100);
                 this.statusBar.setPercentage(this.character.energy);
             } else  if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                chicken_sound.play();
                 let index = this.level.enemies.indexOf(enemy);
                 this.level.enemies[index].enemieDies(enemy, index);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
+                autsch_sound.play();
                 this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy);
             }
@@ -64,6 +66,7 @@ class World {
                 let hittenEnemy = this.level.enemies[index];
                 hittenEnemy.energy -= 20;
                 this.enemyHitOrDie(hittenEnemy, index, bottle);
+                punch_sound.play();
             }
         })
     }
@@ -71,6 +74,7 @@ class World {
     checkCollectingBottles = () => {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
+                pick_up_bottle_sound.play();
                 this.getObject(bottle);
             }
         })
@@ -79,6 +83,7 @@ class World {
     checkCollectingCoins = () => {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
+                get_coin_sound.play();
                 this.getObject(coin);
             }
         })
@@ -170,6 +175,7 @@ class World {
 
     throwBottle() {
         if (this.bottles.length > "") {
+            throw_sound.play();
             let bottle = new ThrowableObject(this.character.x, this.character.y);
             this.throwableBottles.push(bottle);
             this.bottles.pop();

@@ -2,7 +2,7 @@ class Level {
     enemies;
     clouds;
     backGroundLayers;
-    level_end_x = 2200;
+    level_end_x = 2800;
 
 
     constructor(enemies, clouds, backGroundLayers, bottles, coins){

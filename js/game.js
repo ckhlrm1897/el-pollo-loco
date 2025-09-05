@@ -7,6 +7,15 @@ let btn_left = document.getElementById("left-btn");
 let btn_right = document.getElementById("right-btn");
 let btn_throw = document.getElementById("bottle-btn");
 let btn_jump = document.getElementById("jump-btn");
+let jump_sound = new Audio('audio/jump.mp3');
+let throw_sound = new Audio('audio/throw.mp3');
+let get_coin_sound = new Audio('audio/get_coin.mp3');
+let pick_up_bottle_sound = new Audio('audio/pick_bottle.mp3');
+let autsch_sound = new Audio('audio/autsch.mp3');
+let win_sound = new Audio ('audio/win.mp3');
+let first_contact_sound = new Audio ('audio/first_contact.mp3');
+let chicken_sound = new Audio('audio/chicken_sound.mp3');
+let punch_sound = new Audio ('audio/punch.mp3');
 let intervalIds = [];
 let win = false;
 
@@ -141,6 +150,7 @@ document.addEventListener('keydown', (event) => {
 
     if (event.keyCode == 32) {
         keyboard.SPACE = true;
+        jump_sound.play();
     }
 });
 

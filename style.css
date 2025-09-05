@@ -228,4 +228,8 @@ button:hover {
     canvas {
         display: none;
     }
+
+    .home_screen {
+        display: none;
+    }
 }
