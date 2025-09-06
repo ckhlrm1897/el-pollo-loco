@@ -43,7 +43,6 @@ class ThrowableObject extends MovableObject {
             this.x += this.speedX;
         }, 25);
 
-
         setInterval(() => {
             let i = 0;
             if (this.isAlive()) {

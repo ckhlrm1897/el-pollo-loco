@@ -24,7 +24,6 @@ class MovableObject extends DrawableObject {
         } else {
             return this.y < 198;
         }
-
     }
 
     hit(loseEnergy) {
@@ -71,8 +70,6 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-
-
     isColliding(mo) {
         return this.x + this.offset.left + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.offset.top + this.height - this.offset.bottom > mo.y + mo.offset.top &&
@@ -93,8 +90,8 @@ class MovableObject extends DrawableObject {
     }
 
     animate(fn, time) {
-            let id = setInterval(fn, time);
-            intervalIds.push(id);
+        let id = setInterval(fn, time);
+        intervalIds.push(id);
     }
 }
 

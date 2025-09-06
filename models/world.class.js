@@ -13,6 +13,7 @@ class World {
     bottleBar = new BottleBar();
     endbossBar = new HealthBarEndboss();
     playGame = true;
+    isBottleAboveGround = false;
 
 
 
@@ -61,7 +62,7 @@ class World {
 
     checkHitByBottle(enemy) {
         this.throwableBottles.forEach((bottle) => {
-            if (enemy.isColliding(bottle)) {
+            if (enemy.isColliding(bottle) && bottle.energy > 0) {
                 let index = this.level.enemies.indexOf(enemy);
                 let hittenEnemy = this.level.enemies[index];
                 hittenEnemy.energy -= 20;
@@ -91,13 +92,11 @@ class World {
 
     checkThrowObjects() {
         setInterval(() => {
-            if (this.keyboard.D) {
+            if (this.keyboard.D && !this.isBottleAboveGround) {
                 this.throwBottle();
             }
         }, 1000 / 10);
     }
-
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -144,8 +143,6 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-        // mo.drawOuterFrame(this.ctx);
-        // mo.drawFrame(this.ctx);
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -177,6 +174,12 @@ class World {
         if (this.bottles.length > "") {
             throw_sound.play();
             let bottle = new ThrowableObject(this.character.x, this.character.y);
+            if (bottle.isAboveGround()){
+                this.isBottleAboveGround = true;
+                setTimeout(() => {
+                    this.isBottleAboveGround = false;
+                }, 1000/2);
+            }
             this.throwableBottles.push(bottle);
             this.bottles.pop();
             this.bottleBar.quantity--;
@@ -194,6 +197,6 @@ class World {
         bottle.energy = 0;
         setTimeout(() => {
             this.throwableBottles.pop();
-        }, 1000 / 50);
+        }, 1000/5);
     }
 }

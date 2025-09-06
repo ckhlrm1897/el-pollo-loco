@@ -87,8 +87,7 @@ class Endboss extends MovableObject {
             }, 1000);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
-            this.moveLeft();
-            this.speed += 2;
+            this.speed += 1.2;
         } else if (world.character.x > 2240 && !this.hadFirstContact) {
             first_contact_sound.play();
             this.playAnimation(this.IMAGES_ALERT);
