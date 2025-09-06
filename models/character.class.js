@@ -4,7 +4,7 @@ class Character extends MovableObject {
     speed = 10;
     energy = 100;
     idlTime = 0;
-    
+    i = 0;
 
     offset = {
         top: 115,
@@ -87,35 +87,48 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
-        this.animate(this.characterAnimations, 100);
+        this.animate(this.characterAnimations, 1000 / 10);
         this.animate(this.characterMovement, 1000 / 60)
     }
 
+    playJumpAnimation(images) {
+        let path;
+        if (this.i < images.length) {
+            path = images[this.i];
+            this.img = this.imageCache[path];
+            this.i++
+        } else {
+            path = images[5];
+            this.img = this.imageCache[path];
+            this.i = 6;
+        }
+    }
 
-
+    jump() {
+        this.speedY = 25;
+    }
 
     characterMovement = () => {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isAlive) {
             this.moveRight();
             this.otherDirection = false;
         }
-
         if (this.world.keyboard.LEFT && this.x > 0 && this.isAlive) {
             this.moveLeft();
             this.otherDirection = true;
-
         }
-
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.i = 0;
             this.jump();
+
         }
+
         this.world.camera_x = -this.x + 80;
     }
 
     characterAnimations = () => {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
-
             stopGame();
             setTimeout(() => {
                 world.camera_x = 0
@@ -127,7 +140,7 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_HURT);
             this.idlTime = 0;
         } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMPING);
+            this.playJumpAnimation(this.IMAGES_JUMPING);
             this.idlTime = 0;
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
@@ -141,4 +154,4 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_LONG_IDLE)
         }
     }
-}
+}   

@@ -71,9 +71,7 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    jump() {
-        this.speedY = 25;
-    }
+
 
     isColliding(mo) {
         return this.x + this.offset.left + this.width - this.offset.right > mo.x + mo.offset.left &&

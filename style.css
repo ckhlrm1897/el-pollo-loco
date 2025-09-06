@@ -28,6 +28,25 @@ body {
     font-family: 'Rye-Regular';
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.text_box{
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.back_btn{
+    position: absolute;
+    top: -10px;
+    height: 80px;
+    left: 0;
+}
+
 h1 {
     font-size: 50px;
     letter-spacing: 5px;
@@ -74,6 +93,7 @@ img {
 
 .mobile_btns {
     display: none;
+    position: absolute;
     top: 100vh;
     width: 100%;
     z-index: 1;
@@ -226,6 +246,8 @@ footer {
     bottom: 10px;
 }
 
+
+
 @media only screen and (max-height: 480px) {
     canvas {
         height: 100vh;
@@ -250,7 +272,7 @@ footer {
     }
 
     .exit_or_restart_container{
-        top: 92%;
+        top: 90vh;
     }
 }
 

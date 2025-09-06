@@ -109,6 +109,8 @@ function restart() {
     world = new World(canvas, keyboard);
     document.getElementById('restart').classList.add('d_none');
     document.getElementById('exit').classList.add('d_none');
+    document.getElementById('mobile-btns').classList.remove('d_none');
+    
 }
 
 function stopGame() {
@@ -122,6 +124,7 @@ function stopGame() {
         document.getElementById('restart').classList.remove('d_none');
         document.getElementById('exit').classList.remove('d_none');
         document.getElementById('mobile-btns').classList.add('d_none');
+        document.getElementById('footer').classList.add('d_none');
     }, 1000);
 }
 
@@ -133,6 +136,7 @@ function exit(){
     document.getElementById('exit').classList.add('d_none');
     document.getElementById('restart').classList.add('d_none');
     document.getElementById("mobile-btns").classList.add("d_none");
+    document.getElementById('footer').classList.remove('d_none');
 }
 
 btn_right.addEventListener('touchstart', (event) => {
@@ -231,18 +235,3 @@ document.addEventListener('keyup', (event) => {
         keyboard.SPACE = false;
     }
 });
-
-// function fullscreen() {
-//     let fullscreen = document.getElementById('canvas');
-//     openFullscreen(fullscreen);
-// }
-
-// function openFullscreen(elem) {
-//     if (elem.requestFullscreen) {
-//         elem.requestFullscreen();
-//     } else if (elem.webkitRequestFullscreen) { /* Safari */
-//         elem.webkitRequestFullscreen();
-//     } else if (elem.msRequestFullscreen) { /* IE11 */
-//         elem.msRequestFullscreen();
-//     }
-// }

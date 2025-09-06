@@ -85,7 +85,6 @@ class Endboss extends MovableObject {
                 world.camera_x = 0
                 world.playGame = false;
             }, 1000);
-
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.moveLeft();
