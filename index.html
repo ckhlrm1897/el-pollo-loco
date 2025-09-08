@@ -52,38 +52,30 @@
 
     <canvas class="d_none" id="canvas" width="720px" height="480px"></canvas>
 
-    <div class="mobile_btns d_none" id="mobile-btns">
-        <button class="no_border run_left_btn" id="left-btn">
-            <img src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_left">
-        </button>
-        <button class="no_border run_right_btn" id="right-btn">
-            <img class="rotate_180" src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_right">
-        </button>
-
-        <button class="no_border bottle_btn" id="bottle-btn">
-            <img src="img/10_buttons/mobile_buttons/mobile_button_bottle.png" alt="jump">
-        </button>
-        <button class="no_border jump_btn" id="jump-btn">
-            <img src="img/10_buttons/mobile_buttons/mobile_button_jump.png" alt="walk_left">
-        </button>
+    <div class="d_none" id="mobile-btns">
+        <img class="buttons mobile run_left_btn" id="left-btn" src="img/10_buttons/mobile_buttons/mobile_button_run.png"
+            alt="walk_left">
+        <img class="buttons mobile run_right_btn rotate_180" id="right-btn"
+            src="img/10_buttons/mobile_buttons/mobile_button_run.png" alt="walk_right">
+        <img class="buttons mobile bottle_btn" id="bottle-btn" src="img/10_buttons/mobile_buttons/mobile_button_bottle.png"
+            alt="jump">
+        <img class="buttons mobile jump_btn" id="jump-btn" src="img/10_buttons/mobile_buttons/mobile_button_jump.png"
+            alt="walk_left">
     </div>
 
     <div class="home_screen" id="home-screen">
         <img src="./img/9_intro_outro_screens/start/startscreen_1.png" alt="">
         <a href="info.html">
-            <button class="no_border info_btn" id="info">
-                <img src="img/10_buttons/settings/info_button.png" alt="info_btn">
-            </button></a>
-
-        <button class="no_border mute_btn" id="mute" onclick="unMute()">
-            <img src="img/10_buttons/settings/mute_button.png" alt="mute_btn">
-        </button>
-        <button class="no_border d_none loud_btn" id="un-mute" onclick="unMute()">
-            <img src="img/10_buttons/settings/loutspeaker_button.png" alt="loud_btn">
-        </button>
-        <button class="no_border play_btn" onclick="startGame()">
-            <img src="img/10_buttons/settings/play_button.png" alt="play_button">
-        </button>
+            <img class="buttons info_btn" id="info" src="img/10_buttons/settings/info_button.png" alt="info_btn">
+        </a>
+        <img class="buttons" id="touch-on" src="img/10_buttons/mobile_buttons/touch_on.png" onclick="touchToggle()" alt="">
+        <img class="buttons d_none" id="touch-off" src="img/10_buttons/mobile_buttons/touch_off.png" onclick="touchToggle()"  alt="">
+        <img class="buttons mute_btn" id="mute" onclick="unMute()" src="img/10_buttons/settings/mute_button.png"
+            alt="mute_btn">
+        <img class="buttons d_none loud_btn" id="un-mute" onclick="unMute()"
+            src="img/10_buttons/settings/loutspeaker_button.png" alt="loud_btn">
+        <img class="buttons play_btn" onclick="startGame()" src="img/10_buttons/settings/play_button.png"
+            alt="play_button">
     </div>
 
     <div class="rotate_overlay d_flex justify_center align_center items_center">

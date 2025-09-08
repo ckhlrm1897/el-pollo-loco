@@ -15,8 +15,11 @@ class World {
     playGame = true;
     isBottleAboveGround = false;
 
-
-
+    /**
+ * Create a new game world and start the core loops.
+ * @param {HTMLCanvasElement} canvas - Target canvas to render on.
+ * @param {{LEFT?:boolean,RIGHT?:boolean,SPACE?:boolean,D?:boolean}} keyboard - Shared keyboard state.
+ */
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,33 +36,78 @@ class World {
         this.character.energy = 100;
     }
 
+    /**
+     * Inject back-reference so the character can access the world.
+     * @returns {void}
+     */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+ * Register a repeated task (stores id in global intervalIds).
+ * @param {Function} fn - Function to run periodically.
+ * @param {number} time - Interval in ms.
+ * @returns {void}
+ */
     run(fn, time) {
         let id = setInterval(fn, time);
         intervalIds.push(id);
     }
 
+    /**
+ * Collision handling between character and enemies (incl. boss & stomp kills).
+ * Arrow fn to preserve `this`.
+ * @returns {void}
+ */
     checkCollisions = () => {
         this.level.enemies.forEach((enemy) => {
             this.checkHitByBottle(enemy);
-            if (this.character.isColliding(enemy) && enemy instanceof Endboss){
-                this.character.hit(100);
-                this.statusBar.setPercentage(this.character.energy);
-            } else  if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-                chicken_sound.play();
-                let index = this.level.enemies.indexOf(enemy);
-                this.level.enemies[index].enemieDies(enemy, index);
+            if (this.character.isColliding(enemy) && enemy instanceof Endboss) {
+                this.chracterDies();
+            } else if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+                this.chickenDies(enemy);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
-                autsch_sound.play();
-                this.character.hit(5);
-                this.statusBar.setPercentage(this.character.energy);
+                this.characterHitted();
             }
         })
     }
 
+    /**
+ * Apply heavy damage when colliding with the Endboss.
+ * @returns {void}
+ */
+    chracterDies() {
+        this.character.hit(100);
+        this.statusBar.setPercentage(this.character.energy);
+    }
+
+    /**
+ * Kill a regular chicken via stomp and play sound.
+ * @param {MovableObject} enemy
+ * @returns {void}
+ */
+    chickenDies(enemy) {
+        chicken_sound.play();
+        let index = this.level.enemies.indexOf(enemy);
+        this.level.enemies[index].enemieDies(enemy, index);
+    }
+
+    /**
+ * Handle character being hit by a live enemy.
+ * @returns {void}
+ */
+    characterHitted() {
+        autsch_sound.play();
+        this.character.hit(5);
+        this.statusBar.setPercentage(this.character.energy);
+    }
+
+    /**
+     * Handle thrown-bottle hits on an enemy; reduces enemy energy and resolves death/hit.
+     * @param {MovableObject} enemy
+     * @returns {void}
+     */
     checkHitByBottle(enemy) {
         this.throwableBottles.forEach((bottle) => {
             if (enemy.isColliding(bottle) && bottle.energy > 0) {
@@ -72,6 +120,10 @@ class World {
         })
     }
 
+    /**
+ * Detect and collect bottles on overlap.
+ * @returns {void}
+ */
     checkCollectingBottles = () => {
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
@@ -81,6 +133,10 @@ class World {
         })
     }
 
+    /**
+ * Detect and collect coins on overlap.
+ * @returns {void}
+ */
     checkCollectingCoins = () => {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
@@ -90,6 +146,10 @@ class World {
         })
     }
 
+    /**
+ * Poll for throw input (D) with simple airborne cooldown.
+ * @returns {void}
+ */
     checkThrowObjects() {
         setInterval(() => {
             if (this.keyboard.D && !this.isBottleAboveGround) {
@@ -98,33 +158,20 @@ class World {
         }, 1000 / 10);
     }
 
+    /**
+ * Main render loop: clears canvas, draws background, UI bars, player & level objects,
+ * and re-queues itself with requestAnimationFrame while `playGame` is true.
+ * @returns {void}
+ */
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backGroundLayers);
-        this.addObjectsToMap(this.level.clouds);
+        this.drawCanvasAndBackground();
         if (this.playGame) {
-            this.ctx.translate(-this.camera_x, 0);
-            this.addToMap(this.statusBar);
-            this.addToMap(this.coinBar);
-            this.addToMap(this.bottleBar);
-            this.addToMap(this.endbossBar);
-            this.ctx.translate(this.camera_x, 0);
-
+            this.drawBars();
             this.addToMap(this.character);
-
-            this.addObjectsToMap(this.level.enemies);
+            this.drawLevelObjects();
             this.addObjectsToMap(this.throwableBottles);
-            this.addObjectsToMap(this.level.bottles);
-            this.addObjectsToMap(this.level.coins);
-
             this.ctx.translate(-this.camera_x, 0);
-            this.ctx.font = "40px Rye-Regular";
-            this.ctx.fillText(this.coinBar.quantity, 60, 85);
-            this.ctx.fillText(this.bottleBar.quantity, 60, 125);
-
+            this.drawQuantities();
             let self = this;
             requestAnimationFrame(function () {
                 self.draw();
@@ -132,12 +179,66 @@ class World {
         }
     }
 
+    /**
+ * Clear canvas, apply camera transform, and render background layers/clouds.
+ * @returns {void}
+ */
+    drawCanvasAndBackground() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.level.backGroundLayers);
+        this.addObjectsToMap(this.level.clouds);
+    }
+
+    /**
+ * Draw all status bars (camera independent).
+ * @returns {void}
+ */
+    drawBars() {
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.statusBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
+        this.addToMap(this.endbossBar);
+        this.ctx.translate(this.camera_x, 0);
+    }
+
+    /**
+ * Draw numeric quantities for coins/bottles on the HUD.
+ * @returns {void}
+ */
+    drawQuantities() {
+        this.ctx.font = "40px Rye-Regular";
+        this.ctx.fillText(this.coinBar.quantity, 60, 85);
+        this.ctx.fillText(this.bottleBar.quantity, 60, 125);
+    }
+
+    /**
+     * Draw level collectables and enemies (camera dependent).
+     * @returns {void}
+     */
+    drawLevelObjects() {
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.enemies);
+    }
+
+    /**
+ * Add an array of drawables to the map in order.
+ * @param {Array<DrawableObject>} objects
+ * @returns {void}
+ */
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
         });
     }
 
+    /**
+ * Draw a single object, flipping horizontally when `otherDirection` is set.
+ * @param {DrawableObject & {otherDirection?:boolean}} mo
+ * @returns {void}
+ */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
@@ -148,6 +249,11 @@ class World {
         }
     }
 
+    /**
+ * Apply a horizontal mirror transform for rendering.
+ * @param {DrawableObject} mo
+ * @returns {void}
+ */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -155,11 +261,22 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Revert the horizontal mirror transform and restore canvas state.
+     * @param {DrawableObject} mo
+     * @returns {void}
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
 
+    /**
+ * Generic collector: moves the object from level list to inventory list and
+ * increments the matching bar quantity (e.g., "bottle" → bottles/bottleBar).
+ * @param {DrawableObject} object
+ * @returns {void}
+ */
     getObject(object) {
         let type = object.constructor.name.toLowerCase();
         let plural = type + "s";
@@ -170,15 +287,19 @@ class World {
         this[barName].quantity++;
     }
 
+    /**
+ * Spawn and throw a bottle if inventory has any; starts a short airborne cooldown.
+ * @returns {void}
+ */
     throwBottle() {
         if (this.bottles.length > "") {
             throw_sound.play();
             let bottle = new ThrowableObject(this.character.x, this.character.y);
-            if (bottle.isAboveGround()){
+            if (bottle.isAboveGround()) {
                 this.isBottleAboveGround = true;
                 setTimeout(() => {
                     this.isBottleAboveGround = false;
-                }, 1000/2);
+                }, 1250);
             }
             this.throwableBottles.push(bottle);
             this.bottles.pop();
@@ -186,6 +307,14 @@ class World {
         }
     }
 
+    /**
+ * Apply damage to a hit enemy, update boss bar if applicable, kill at 0,
+ * and despawn thrown bottle shortly after.
+ * @param {MovableObject} hittenEnemy
+ * @param {number} index - Index in level.enemies
+ * @param {ThrowableObject} bottle
+ * @returns {void}
+ */
     enemyHitOrDie(hittenEnemy, index, bottle) {
         if (hittenEnemy instanceof Endboss) {
             this.endbossBar.setPercentage(hittenEnemy.energy);
@@ -197,6 +326,6 @@ class World {
         bottle.energy = 0;
         setTimeout(() => {
             this.throwableBottles.pop();
-        }, 1000/5);
+        }, 1000 / 5);
     }
 }

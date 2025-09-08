@@ -35,12 +35,12 @@ main {
     text-align: center;
 }
 
-.text_box{
+.text_box {
     width: 60%;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.back_btn{
+.back_btn {
     position: absolute;
     top: -10px;
     height: 80px;
@@ -91,16 +91,16 @@ img {
     justify-content: end;
 }
 
-.mobile_btns {
+#mobile-btns{
     display: none;
-    position: absolute;
-    top: 100vh;
-    width: 100%;
-    z-index: 1;
+}
+
+.touch_on {
+    display: unset !important;
 }
 
 button img {
-    height: 66px;
+    height: 55px;
     width: 70px;
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
@@ -110,6 +110,20 @@ button img {
 button {
     width: 80px;
     background-color: transparent;
+}
+
+.buttons {
+    width: 70px;
+    height: 66px
+}
+
+.mobile {
+    height: 50px;
+    /* display: none; */
+}
+
+.buttons:hover {
+    cursor: pointer;
 }
 
 button:hover {
@@ -158,33 +172,33 @@ button:hover {
 
 .jump_btn {
     position: absolute;
-    bottom: 65px;
-    right: 78px;
+    bottom: 0px;
+    right: 0px;
 }
 
 .bottle_btn {
     position: absolute;
-    bottom: 65px;
-    right: 146px;
+    bottom: 0px;
+    right: 78px;
 }
 
 .run_right_btn {
     position: absolute;
-    bottom: 65px;
+    bottom: 0px;
     left: 78px;
 }
 
 .run_left_btn {
     position: absolute;
-    bottom: 65px;
+    bottom: 0px;
     left: 0px;
 }
 
 .play_btn {
     position: absolute;
-    top: 15px;
-    right: 78px;
-    
+    top: 0px;
+    right: 0px;
+
 }
 
 .exit_or_restart_container {
@@ -195,7 +209,7 @@ button:hover {
     width: 140px;
 }
 
-.exit_or_restart_buttons{
+.exit_or_restart_buttons {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -215,25 +229,20 @@ button:hover {
 
 .loud_btn {
     position: absolute;
-    top: 15px;
+    top: 0px;
     right: 156px;
 }
 
 .mute_btn {
     position: absolute;
-    top: 15px;
-    right: 156px;
+    top: 0px;
+    right: 78px;
 }
 
 .info_btn {
     position: absolute;
-    top: 15px;
-    right: calc(156px + 78px);
-}
-
-.fulls_btn {
-    position: absolute;
-    top: 285px;
+    top: 0px;
+    right: calc(78px * 2);
 }
 
 .rotate_overlay {
@@ -263,7 +272,7 @@ footer {
         display: none;
     }
 
-    .mobile_btns {
+    #mobile-btns {
         display: unset;
     }
 
@@ -271,8 +280,13 @@ footer {
         display: none;
     }
 
-    .exit_or_restart_container{
-        top: 90vh;
+    .exit_or_restart_container {
+        top: 92vh;
+    }
+
+    .game_over {
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -294,12 +308,12 @@ footer {
     .home_screen {
         display: none;
     }
-    
-    #win{
+
+    #win {
         display: none;
     }
 
-    #game-over{
+    #game-over {
         display: none;
     }
 

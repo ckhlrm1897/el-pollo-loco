@@ -4,8 +4,11 @@ class Character extends MovableObject {
     speed = 10;
     energy = 100;
     idlTime = 0;
-    i = 0;
 
+    /**
+ * Collision offset to adjust hitbox for more accurate detection.
+ * @type {{top:number, bottom:number, left:number, right:number}}
+ */
     offset = {
         top: 115,
         bottom: 130,
@@ -76,10 +79,20 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
 
+    /**
+ * Reference to the current game world.
+ * @type {World}
+ */
     world;
 
+    /**
+ * Create the player character.
+ * Loads default image and all animation frames, applies gravity,
+ * and starts animation/movement loops.
+ */
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super();
+        this.loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -88,27 +101,23 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.applyGravity();
         this.animate(this.characterAnimations, 1000 / 10);
-        this.animate(this.characterMovement, 1000 / 60)
+        this.animate(this.characterMovements, 1000 / 60)
     }
 
-    playJumpAnimation(images) {
-        let path;
-        if (this.i < images.length) {
-            path = images[this.i];
-            this.img = this.imageCache[path];
-            this.i++
-        } else {
-            path = images[5];
-            this.img = this.imageCache[path];
-            this.i = 6;
-        }
-    }
-
+    /**
+     * Makes the character jump by setting vertical speed.
+     * @returns {void}
+     */
     jump() {
         this.speedY = 25;
     }
 
-    characterMovement = () => {
+    /**
+     * Handles continuous movements input and camera updates.
+     * Runs at ~60 FPS.
+     * @returns {void}
+     */
+    characterMovements = () => {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isAlive) {
             this.moveRight();
             this.otherDirection = false;
@@ -120,50 +129,102 @@ class Character extends MovableObject {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.i = 0;
             this.jump();
-
         }
-
         this.world.camera_x = -this.x + 80;
     }
 
+    /**
+ * Handles character animation states (dead, hurt, air, walking, idle).
+ * Runs at ~10 FPS.
+ * @returns {void}
+ */
     characterAnimations = () => {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
-            audio.pause();
+            this.characterDies();
+        } else if (this.isHurt()) {
+            this.characterHurts();
+        } else if (this.isAboveGround()) {
+            this.characterIsInTheAir();
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.characterIsWalking();
+        } else if (this.world.keyboard.D) {
+            this.idleReset();
+        } else {
+            this.characterIsIdle();
+        }
+    }
+
+    /**
+ * Trigger death animation, stop game and play sound.
+ * @returns {void}
+ */
+    characterDies() {
+        this.playAnimation(this.IMAGES_DEAD);
+        audio.pause();
+        if (!mute) {
             audio.currentTime = 0;
             game_over_sound.play();
-            stopGame();
-            setTimeout(() => {
-                world.camera_x = 0
-                win = false;
-                world.playGame = false;
-            }, 1000);
         }
-        else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-            this.idlTime = 0;
-            snorking_sound.pause();
-            snorking_sound.currentTime = 0;
-        } else if (this.isAboveGround()) {
-            this.playJumpAnimation(this.IMAGES_JUMPING);
-            this.idlTime = 0;
-            snorking_sound.pause();
-            snorking_sound.currentTime = 0;
-        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(this.IMAGES_WALKING);
-            this.idlTime = 0;
-            snorking_sound.pause();
-            snorking_sound.currentTime = 0;
-        } else if (this.world.keyboard.D) {
-            this.idlTime = 0;
-            snorking_sound.pause();
-            snorking_sound.currentTime = 0;
-        } else if (this.isInIdle() && this.idlTime < 50) {
+        stopGame();
+        setTimeout(() => {
+            world.camera_x = 0
+            win = false;
+            world.playGame = false;
+        }, 1000);
+    }
+
+    /**
+     * Trigger hurt animation and reset idle timer.
+     * @returns {void}
+     */
+    characterHurts() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.idleReset();
+    }
+
+    /**
+ * Trigger jump animation while in the air.
+ * @returns {void}
+ */
+    characterIsInTheAir() {
+        this.playAnimationOnce(this.IMAGES_JUMPING);
+        this.idleReset();
+    }
+
+    /**
+ * Trigger walking animation while moving horizontally.
+ * @returns {void}
+ */
+    characterIsWalking() {
+        this.playAnimation(this.IMAGES_WALKING);
+        this.idleReset();
+    }
+
+    /**
+ * Trigger idle animation or long idle animation (snoring) if idle too long.
+ * @returns {void}
+ */
+    characterIsIdle() {
+        if (this.isIdle() && this.idlTime < 50) {
             this.playAnimation(this.IMAGES_IDLE);
             this.idlTime++;
-        } else if (this.isInIdle() && this.idlTime >= 50) {
+        } else if (this.isIdle() && this.idlTime >= 50) {
             this.playAnimation(this.IMAGES_LONG_IDLE)
-            snorking_sound.play();
+            if (!mute) {
+                snorking_sound.play();
+            }
+        }
+    }
+
+    /**
+     * Reset idle timer and stop snoring sound if playing.
+     * @returns {void}
+     */
+    idleReset() {
+        this.idlTime = 0;
+        if (!mute) {
+            snorking_sound.pause();
+            snorking_sound.currentTime = 0;
         }
     }
 }   

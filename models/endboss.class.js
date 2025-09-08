@@ -7,6 +7,10 @@ class Endboss extends MovableObject {
     energy = 100;
     hadFirstContact = false;
 
+    /**
+ * Hitbox offset for more accurate collisions.
+ * @type {{top:number,bottom:number,left:number,right:number}}
+ */
     offset = {
         top: 80,
         bottom: 120,
@@ -55,9 +59,13 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png'
     ]
 
-
+    /**
+     * Create the Endboss: load all sprite sheets, set speed, and start animation loop.
+     * Note: Prefer `super(); this.loadImage(...)` over `super().loadImage(...)`.
+     */
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
+        super();
+        this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
@@ -67,34 +75,48 @@ class Endboss extends MovableObject {
         this.animate(this.endbossAnimations, 1000 / 10);
     }
 
-    i = 0;
-
+    /**
+     * State machine for the boss:
+     * - dead  → death sequence & win
+     * - hurt  → play hurt, speed up
+     * - first contact trigger when player is near
+     * - otherwise walk & move left after contact
+     * @returns {void}
+     */
     endbossAnimations = () => {
         if (this.isDead()) {
-            audio.pause();
-            win_sound.play();
-            if (this.i <= 4) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.i++
-                this.y += 10;
-                this.speed = 0;
-                win = true;
-            }
-            stopGame();
-            setTimeout(() => {
-                world.camera_x = 0
-                world.playGame = false;
-            }, 1000);
+            this.i = 0;
+            this.enbossDies();               
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.speed += 1.2;
         } else if (world.character.x > 2240 && !this.hadFirstContact) {
             first_contact_sound.play();
-            this.playAnimation(this.IMAGES_ALERT);
+            this.i = 0;
+            this.playAnimationOnce(this.IMAGES_ALERT);
             this.hadFirstContact = true;
         } else if (this.isAlive && this.hadFirstContact) {
             this.playAnimation(this.IMAGES_WALKING);
             this.moveLeft();
         }
+    }
+
+    /**
+     * Death sequence: pause music, play win sound, play death frames,
+     * stop movement, mark win, stop game after short delay.
+     * @returns {void}
+     */
+    enbossDies() {
+        audio.pause();
+        win_sound.play();
+        this.playAnimation(this.IMAGES_DEAD);
+        this.y += 10;
+        this.speed = 0;
+        win = true;
+        stopGame();
+        setTimeout(() => {
+            world.camera_x = 0
+            world.playGame = false;
+        }, 1000);
     }
 }

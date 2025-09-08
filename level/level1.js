@@ -1,4 +1,10 @@
 let level1;
+
+/**
+ * Initialize the default level and assign it to the global `level1`.
+ * Creates enemies, clouds, background layers, bottles, and coins with their initial positions.
+ * @returns {void}
+ */
 function initLevel() {
 
     level1 = new Level(
@@ -78,5 +84,4 @@ function initLevel() {
             new Coin(150*11, 250),
         ]
     );
-
 }
