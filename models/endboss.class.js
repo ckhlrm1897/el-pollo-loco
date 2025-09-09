@@ -85,7 +85,6 @@ class Endboss extends MovableObject {
      */
     endbossAnimations = () => {
         if (this.isDead()) {
-            this.i = 0;
             this.enbossDies();               
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
@@ -109,12 +108,11 @@ class Endboss extends MovableObject {
     enbossDies() {
         audio.pause();
         win_sound.play();
-        this.playAnimation(this.IMAGES_DEAD);
-        this.y += 10;
+        this.playAnimationOnce(this.IMAGES_DEAD);
         this.speed = 0;
         win = true;
-        stopGame();
         setTimeout(() => {
+            stopGame();
             world.camera_x = 0
             world.playGame = false;
         }, 1000);

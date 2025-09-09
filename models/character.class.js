@@ -118,11 +118,13 @@ class Character extends MovableObject {
      * @returns {void}
      */
     characterMovements = () => {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isAlive) {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.isAlive && !this.isHurt()) {
+            this.speed = 10;
             this.moveRight();
             this.otherDirection = false;
         }
-        if (this.world.keyboard.LEFT && this.x > 0 && this.isAlive) {
+        if (this.world.keyboard.LEFT && this.x > 0 && this.isAlive && !this.isHurt()) {
+            this.speed = 10;
             this.moveLeft();
             this.otherDirection = true;
         }
@@ -180,6 +182,8 @@ class Character extends MovableObject {
     characterHurts() {
         this.playAnimation(this.IMAGES_HURT);
         this.idleReset();
+        this.speed = 20;
+        this.moveLeft();
     }
 
     /**

@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
  */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
-            return true
+            return this.y < 350;
         } else {
             return this.y < 198;
         }
@@ -94,7 +94,6 @@ class MovableObject extends DrawableObject {
  */
     moveRight() {
         this.x += this.speed;
-
     }
 
     /**
@@ -129,9 +128,9 @@ class MovableObject extends DrawableObject {
             this.img = this.imageCache[path];
             this.i++
         } else {
-            let path = images[images.length];
+            let path = images[images.length - 1];
             this.img = this.imageCache[path];
-            this.i = images.length + 1;
+            this.i = images.length;
         }
     }
 

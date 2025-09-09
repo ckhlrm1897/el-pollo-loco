@@ -79,16 +79,22 @@ class ThrowableObject extends MovableObject {
  */
     throwAnimation() {
         setInterval(() => {
-            let i = 0;
-            if (this.isAlive()) {
+            if (this.y > 300 ) {
+                this.bottleSplash();
+            }
+            if (this.isAlive() && this.y < 300) {
                 this.playAnimation(this.IMAGES_ROTATING)
             } else if (this.isDead()) {
-                this.height = 200;
-                this.width = 160;
-                this.speedY = 0;
-                this.speedX = 0;
-                this.playAnimation(this.IMAGES_SPLASHING)
+                this.bottleSplash();
             }
         }, 1000 / 20);
+    }
+
+    bottleSplash() {
+        this.height = 200;
+        this.width = 160;
+        this.speedY = 0;
+        this.speedX = 0;
+        this.playAnimation(this.IMAGES_SPLASHING)
     }
 }

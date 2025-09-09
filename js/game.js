@@ -13,8 +13,6 @@ let btn_right = document.getElementById("right-btn");
 let btn_throw = document.getElementById("bottle-btn");
 let btn_jump = document.getElementById("jump-btn");
 
-let touch = false;
-
 /** @type {HTMLAudioElement} */
 let audio = new Audio('audio/acoustic-mexican-guitar-218610.mp3');
 let jump_sound = new Audio('audio/jump.mp3');
@@ -143,11 +141,6 @@ function startGame() {
     world = new World(canvas, keyboard);
     document.getElementById("mobile-btns").classList.remove("d_none");
     document.getElementById("footer").classList.add("d_none");
-    if (touch) {
-        document.getElementById("mobile-btns").classList.add("touch_on");
-    } else if (!touch) {
-        document.getElementById("mobile-btns").classList.remove("touch_on");
-    }
 }
 
 /**
@@ -201,23 +194,6 @@ function exit() {
     document.getElementById('restart').classList.add('d_none');
     document.getElementById("mobile-btns").classList.add("d_none");
     document.getElementById('footer').classList.remove('d_none');
-}
-
-/**
- * Toggle Touch Buttons
- * @returns {void}
- */
-function touchToggle() {
-    if (!touch) {
-        touch = true;
-        document.getElementById("touch-on").classList.add("d_none");
-        document.getElementById("touch-off").classList.remove("d_none");
-    } else if (touch) {
-        touch = false;
-        document.getElementById("touch-on").classList.remove("d_none");
-        document.getElementById("touch-off").classList.add("d_none");
-    }
-
 }
 
 btn_right.addEventListener('touchstart', (event) => {

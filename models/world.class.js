@@ -29,7 +29,7 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.run(this.checkCollisions, 1000 / 20);
+        this.run(this.checkCollisions, 1000 / 70);
         this.run(this.checkCollectingBottles, 1000 / 20);
         this.run(this.checkCollectingCoins, 1000 / 20);
         this.checkThrowObjects();
@@ -69,6 +69,7 @@ class World {
                 this.chickenDies(enemy);
             } else if (this.character.isColliding(enemy) && enemy.isAlive()) {
                 this.characterHitted();
+                this.level.enemies.i = 0;
             }
         })
     }
@@ -116,6 +117,11 @@ class World {
                 hittenEnemy.energy -= 20;
                 this.enemyHitOrDie(hittenEnemy, index, bottle);
                 punch_sound.play();
+            } else if(bottle.y > 300) {
+                bottle.energy = 0;
+                setTimeout(() => {
+                    this.throwableBottles.pop();
+                }, 1000/2);
             }
         })
     }
@@ -291,7 +297,7 @@ class World {
  * Spawn and throw a bottle if inventory has any; starts a short airborne cooldown.
  * @returns {void}
  */
-    throwBottle() {
+     throwBottle() {
         if (this.bottles.length > "") {
             throw_sound.play();
             let bottle = new ThrowableObject(this.character.x, this.character.y);

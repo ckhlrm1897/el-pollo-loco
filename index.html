@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
     <link rel="shortcut icon" href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png" type="image/x-icon">
-    <link rel="stylesheet" href="fonts/font.css">
     <link rel="stylesheet" href="style.css">
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -27,7 +26,6 @@
     <script src="models/bars/health-bar-endboss.class.js"></script>
     <script src="models/bars/coinBar.class.js"></script>
     <script src="models/bars/bottleBar.class.js"></script>
-    <script src="models/endscreen.class.js"></script>
     <script src="level/level1.js"></script>
 
 
@@ -48,11 +46,8 @@
             </button>
         </div>
     </div>
-
-
     <canvas class="d_none" id="canvas" width="720px" height="480px"></canvas>
-
-    <div class="d_none" id="mobile-btns">
+    <div id="mobile-btns">
         <img class="buttons mobile run_left_btn" id="left-btn" src="img/10_buttons/mobile_buttons/mobile_button_run.png"
             alt="walk_left">
         <img class="buttons mobile run_right_btn rotate_180" id="right-btn"
@@ -68,8 +63,6 @@
         <a href="info.html">
             <img class="buttons info_btn" id="info" src="img/10_buttons/settings/info_button.png" alt="info_btn">
         </a>
-        <img class="buttons" id="touch-on" src="img/10_buttons/mobile_buttons/touch_on.png" onclick="touchToggle()" alt="">
-        <img class="buttons d_none" id="touch-off" src="img/10_buttons/mobile_buttons/touch_off.png" onclick="touchToggle()"  alt="">
         <img class="buttons mute_btn" id="mute" onclick="unMute()" src="img/10_buttons/settings/mute_button.png"
             alt="mute_btn">
         <img class="buttons d_none loud_btn" id="un-mute" onclick="unMute()"
