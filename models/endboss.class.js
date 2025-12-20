@@ -85,7 +85,8 @@ class Endboss extends MovableObject {
      */
     endbossAnimations = () => {
         if (this.isDead()) {
-            this.enbossDies();               
+            world.character.speed = 0;    
+            this.enbossDies();   
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.speed += 1.2;
